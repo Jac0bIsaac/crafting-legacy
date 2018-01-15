@@ -1,0 +1,1 @@
+<?php require 'browse.php'; ?>
