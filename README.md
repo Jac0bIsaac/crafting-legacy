@@ -1,1 +1,1 @@
-This is source code from our legacy web, which we make it more suitable with refactoring its code. 
+This is source code from our legacy web.We're refactoring our legacy web to make it more suitable with our new business model.
