@@ -4,28 +4,25 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
-				<?php if (isset($views['pageTitle'])) echo $views['pageTitle']; ?>
+			<?php if (isset($views['pageTitle'])) echo $views['pageTitle']; ?>
 			</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
 
-	<?php 
+<?php 
 	if (isset($views['errorMessage'])) { ?>
-
-	<div class="alert alert-danger ">
-		<h4>Error!</h4>
-		<p>
-			<?php echo $views['errorMessage']; ?>
-			<button type="button" class="btn btn-danger"
-				onClick="self.history.back();">Repeat</button>
-		</p>
-	</div>
 	
-	<?php } else { ?>
-
-
+		<div class="alert alert-danger alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-hidden="true">&times;</button>
+		<?php echo $views['errorMessage']; ?>
+	    </div>
+	
+	
+	<?php } ?>
+	
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
@@ -49,11 +46,11 @@
 										value="<?php if (isset($views['to'])) echo htmlspecialchars($views['to']); ?>">
 								</div>
 
-								<!-- Subjek -->
+								<!-- Subject -->
 								<div class="form-group">
 									<label> Subject: </label> <input type="text"
 										class="form-control" name="subject"
-										value="Re: <?php if (isset($views['subject'])) echo htmlspecialchars($views['subject']); ?>">
+										value="<?php if (isset($_POST['subject'])) { echo preventInject($_POST['subject']);}?>">
 								</div>
 
 								<!-- Pesan -->
@@ -80,6 +77,5 @@
 		</div>
 	</div>
 
-	<?php }?>
 </div>
 <!-- /#page-wrapper -->

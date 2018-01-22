@@ -30,7 +30,7 @@ $totalRows = (isset($views['totalMessages'])) ? $views['totalMessages'] : '';
  <?php 
    }
    
-   if ( isset( $views['statusMessage'] ) ) { ?>
+   if (isset( $views['statusMessage'] ) ) { ?>
 
 	<div class="alert alert-success alert-dismissable">
 		<button type="button" class="close" data-dismiss="alert"
@@ -61,7 +61,8 @@ $totalRows = (isset($views['totalMessages'])) ? $views['totalMessages'] : '';
 								<tr>
 									<th>#</th>
 									<th>Sender</th>
-									<th>Subject</th>
+									<th>Email</th>
+									<th>Phone</th>
 									<th>Date</th>
 									<th>Delete</th>
 								</tr>
@@ -77,13 +78,15 @@ $totalRows = (isset($views['totalMessages'])) ? $views['totalMessages'] : '';
 									<td><?php echo htmlspecialchars($no); ?></td>
 									<td><?php echo htmlspecialchars($m['sender']); ?>
 									</td>
-									<td><a
-										href="index.php?module=messages&action=replyMessage&messageId=<?php echo htmlspecialchars($m['inboxID']); ?>"><?php echo htmlspecialchars($m['subject']); ?>
-									</a></td>
+									<td>
+									<a href="index.php?module=messages&action=replyMessage&messageId=<?php echo htmlspecialchars($m['ID']); ?>"><?php echo htmlspecialchars($m['email']); ?>
+									</a>
+									</td>
+									<td><?php echo htmlspecialchars($m['phone']); ?></td>
 									<td><?php echo htmlspecialchars(makeDate($m['date_sent'])); ?>
 									</td>
 									<td><a
-										href="javascript:deleteMessage('<?php echo htmlspecialchars((int)$m['inboxID']); ?>', '<?php echo htmlspecialchars($m['sender']); ?> ')"
+										href="javascript:deleteMessage('<?php echo htmlspecialchars((int)$m['ID']); ?>', '<?php echo htmlspecialchars($m['sender']); ?> ')"
 										title="delete" class="btn btn-danger"><i
 											class="fa fa-trash-o fa-fw"></i> Delete </a>
 									</td>

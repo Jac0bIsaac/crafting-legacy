@@ -1,1 +1,131 @@
-<?php
+<?php if (!defined('APP_KEY')) header("Location: 403.php");
+
+// Homepage
+function grabHome()
+{
+  global $products, $posts;
+  
+  $views = array();
+  
+  $data_products = $products -> findProducts(0, 6);
+  $data_posts = $posts -> findPosts(0, 3);
+  
+  // latest products
+  $views['products'] = $data_products['results'];
+  $views['totalProducts'] = $data_products['totalProducts'];
+  
+  // latest posts
+  $views['posts'] = $data_posts['results'];
+  $views['totalPosts'] = $data_posts['totalPosts'];
+  
+  if (empty($data_products['totalProducts'])) $views['unavailable'] = "Product Unavailable";
+  
+  if (empty($data_posts['totalPosts'])) $views['unpublished'] = "No post";
+  
+  if (isset($_GET['status'])) {
+      
+     if ($_GET['status'] == 'messageSent') $views['statusMessage'] = "Your message sent successfully";
+  }
+  
+  require 'home.php';
+  
+}
+
+// blog content
+function grabPost($param = null)
+{
+ 
+ 
+ require 'posts.php';
+}
+
+// submit message from contact form
+function submitMessage()
+{
+ global $inbox;
+ 
+ $views = array();
+ 
+ $name = $email = $phone = $msg = "";
+ 
+ $form_fields = array("name"=>90, "email"=>180, "phone" => 20, "message"=>500);
+ 
+ try {
+     
+     if (isset($_POST['send']) && $_POST['send'] == 'Submit') {
+         
+         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+         $phone = isset($_POST['phone']) ? str_replace(array(' ', '-', '(', ')'), '', $_POST['phone']) : "";
+         $msg = preventInject($_POST['message']);
+         
+         $badCSRF = true; // check CSRF
+         
+         if (!isset($_POST['csrf']) || !isset($_SESSION['CSRF']) || empty($_POST['csrf'])
+             || $_POST['csrf'] !== $_SESSION['CSRF']) {
+                 
+                 throw new InboxException("Sorry, there is a security issue");
+                 $badCSRF = true;
+                 
+             } elseif (empty($name) || empty($email) || empty($phone) || empty($msg)) {
+                 
+                 throw new InboxException("All Column must be filled !");
+                 
+             } elseif (!preg_match('/^[0-9]{10,13}$/', $phone)) {
+                 
+                 throw new InboxException("Your phone number is not valid !");
+                 
+             } elseif (is_valid_email_address(trim($email)) == 0) {
+                 
+                 throw new InboxException("Please enter a valid email address");
+                 
+             } elseif ( !preg_match('/^[a-zA-Z ]*$/', $name)) {
+                 
+                 throw new InboxException("Please enter a your valid name");
+                 
+             } else {
+                 
+                 $badCSRF = false;
+                 unset($_SESSION['CSRF']);
+                 
+                 if (valueSizeValidation($form_fields)) {}
+                 
+                 $submit_message = $inbox -> sendMessage($name, $email, $phone, $msg, date("Ymd"), date("H:i:s"));
+                 
+                 if ($submit_message) {
+                     
+                     // Create the email and send the message
+                     $to = 'hello@kartatopia.com'; // Add your email address inbetween the '' replacing yourname@yourdomain.com - This is where the form will send a message to.
+                     $email_subject = "Website Contact Form:  $name";
+                     $email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName: $name\n\nEmail: $email\n\nPhone: $phone\n\nMessage:\n$msg";
+                     $headers = "From: noreply@kartatopia.com\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.
+                     $headers .= "Reply-To: $email";
+                     mail($to,$email_subject,$email_body,$headers);
+                     
+                     $views['successMessage'] = "Your Message sent";
+                     
+                     return $views['successMessage'];
+                     
+                 }
+             }
+             
+     } else {
+         
+         require 'contact.php';
+     }
+     
+ } catch (InboxException $e) {
+     
+     $views['errorMessage'] = $e -> getMessage();
+     include 'contact.php';
+     
+ }
+ 
+}
+
+// 404 Error Not Found
+function ErrorNotFound()
+{
+  header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+  include '404.php';
+}

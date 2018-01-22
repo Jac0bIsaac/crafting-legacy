@@ -91,12 +91,11 @@ function replyMessage()
  	$message = preventInject($_POST['pesan']);
  
  	// get site name
- 	$aya_yes = $options -> findOptions();
- 	$views['aya_yes'] = $aya_yes['options'];
+ 	$find_options = $options -> findOptions();
+ 	$views['options'] = $find_options['options'];
  	
- 	foreach ($views['aya_yes'] as $aifs) {
- 		
- 	    $siteName = $aifs['site_name'];
+ 	foreach ($views['options'] as $opsi) {
+ 	    $siteName = $opsi['site_name'];
  	}
  	
  	$replyMessage = $inbox -> replyMessages($to, $subject, $message, $siteName);
@@ -106,10 +105,10 @@ function replyMessage()
  } else {
  	
  	$pesan = $inbox -> readMessage($messageId, $sanitize);
- 	$views['message_id'] = $pesan['inboxID'];
+ 	$views['message_id'] = $pesan['ID'];
  	$views['sender'] = $pesan['sender'];
  	$views['to'] = $pesan['email'];
- 	$views['subject'] = $pesan['subject'];
+ 	$views['phone'] = $pesan['phone'];
  	$views['message'] = $pesan['messages'];
  	
  	require('messages/read-message.php');

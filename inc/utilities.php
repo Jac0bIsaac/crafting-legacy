@@ -788,6 +788,7 @@ function tgl_eng_to_ind($tgl)
 	return $tgl_ind;
 }
 
+// make Date
 function makeDate($value)
 {
 	$day = substr( $value, 8, 2 );
@@ -955,6 +956,15 @@ function timeAgo($date)
     
     return "$difference $periods[$j] {$tense}";
     
+}
+
+// Autolink http://www.couchcode.com/php/auto-link-function/
+function autolink($text) {
+    $pattern = '/(((http[s]?:\/\/(.+(:.+)?@)?)|(www\.))[a-z0-9](([-a-z0-9]+\.)*\.[a-z]{2,})?\/?[a-z0-9.,_\/~#&=:;%+!?-]+)/is';
+    $text = preg_replace($pattern, ' <a href="$1">$1</a>', $text);
+    // fix URLs without protocols
+    $text = preg_replace('/href="www/', 'href="http://www', $text);
+    return $text;
 }
 
 // value size validation

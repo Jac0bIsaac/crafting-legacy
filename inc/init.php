@@ -1,5 +1,8 @@
 <?php
-// starts new or resumes existing session
+
+date_default_timezone_set('Asia/Jakarta');
+ini_set('memory_limit', '64M');
+
 if (!isset($_SESSION)) {
     
     session_start();

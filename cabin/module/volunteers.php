@@ -198,12 +198,13 @@ function newVolunteer($volunteers)
  			$views['errorMessage'] = "Please enter a valid email address";
  			require('volunteers/edit-volunteer.php');
  		
- 			// checking password
+ 	    // checking password
  		} elseif (strlen($password) < 8) {
  			
  			$views['errorMessage'] = "Your password must consist of least 8 characters!";
  			require('volunteers/edit-volunteer.php');
  		
+ 		// checking phone number 
  		} elseif (!preg_match('/^[0-9]{10,13}$/', $phone)) {
  			
  			$views['errorMessage'] = "Your phone number is not valid !";

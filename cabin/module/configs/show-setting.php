@@ -74,11 +74,11 @@ if (!defined('APP_KEY')) header("Location: ../../../cabin/403.php");
 
 									<?php 
 									//set up images
-									$logo = '../files/picture/' . $option['logo'];
+									$logo = '../files/picture/photo/' . $option['logo'];
 
 									if (!is_file($logo)) :
 
-									$logo = '../files/picture/nophoto.jpg';
+									$logo = '../files/picture/photo/nophoto.jpg';
 									endif;
 
 

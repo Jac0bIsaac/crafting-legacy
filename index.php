@@ -1,4 +1,5 @@
 <?php 
+$start = microtime(true);
 require 'inc/config.php';
 
 $findParam = $dispatching-> findRequestParam(); // finding request URI
@@ -14,20 +15,69 @@ $parameters = (isset($matched) || is_array($action)
     || is_array($dispatching->URLElement(1))
     || is_array($dispatching->URLElement(2))) ? $param1 : $param2;
     
+if ($action == 'posts' || $action == 'post') {
+   blogHeader($action, $param2);
+} elseif ($action == 'contact') {
+   contactHeader(); 
+} else {
+   setHeader($matched, $action);
+}
+
+include 'public/content.php';
+
+if (!$action) {
     
-setHeader();
+   grabHome();
 
-include 'public/products.php';
-
-include 'public/about.php';
-
-include 'public/contact.php';
-
-setFooter();
+} else {
     
+   switch ($action) {
+    
+       case 'post':
+       
+           if ($parameters) {
+               
+              checkDetailRequest($action, $param1);
+              
+           } else {
+               
+              ErrorNotFound();
+           }
+           
+           break;
+       
+       case 'posts':
+           
+           grabPost();
+           
+           break;
+           
+       case 'contact':
+           
+           submitMessage();
+           
+           break;
+           
+       default:
+           
+           ErrorNotFound();
+          
+           break;
+           
+   }
+   
+}
 
-  
+if ($action == 'posts' || $action == 'post') {
+    
+   blogFooter();
+   
+} else {
 
-  
+   setFooter();
+    
+}
 
+ob_end_flush();
 
+echo ' '.(microtime(true)-$start);

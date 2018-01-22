@@ -11,7 +11,6 @@ if (isset($_GET['module']) && $_GET['module'] != '') {
 }
 
 // cek direktori
-
 if (!is_readable($pathToModule) || empty($module)) {
 
   include($pathToError);

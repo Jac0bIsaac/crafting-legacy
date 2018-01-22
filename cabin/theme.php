@@ -21,16 +21,16 @@ function scHeader($pageTitle = NULL)
 <!-- MetisMenu CSS -->
 <link href="<?php echo APP_CONTROL_PANEL; ?>/css/plugins/metisMenu/metisMenu.min.css"
 	rel="stylesheet">
-<!-- Icon -->
-<link rel="icon" href="<?php echo APP_CONTROL_PANEL; ?>/img/favicon.png" type="image/x-icon" />
 
 <!-- font awesome -->
 <link href="<?php echo APP_CONTROL_PANEL; ?>/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
-
 <link href="<?php echo APP_CONTROL_PANEL; ?>/css/sb-admin.css" rel="stylesheet">
 
+<!-- Icon -->
+ <link href="<?php echo APP_CONTROL_PANEL; ?>/img/favicon.ico" rel="Shortcut Icon" />
+   
 <!-- wysiwyg editor-->
 <script src="<?php echo APP_CONTROL_PANEL; ?>/wysiwyg/tiny_mce/jquery.tinymce.min.js" type="text/javascript"></script>
 <script src="<?php echo APP_CONTROL_PANEL; ?>/wysiwyg/tiny_mce/tinymce.min.js" type="text/javascript"></script>

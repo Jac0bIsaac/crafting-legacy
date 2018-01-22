@@ -144,9 +144,7 @@ public function URLDispatcher($action = '', $param = null)
    $uri = rtrim(dirname($_SERVER["SCRIPT_NAME"]), '/' );
    $uri = '/' . trim(str_replace( $uri, '', $_SERVER['REQUEST_URI'] ), '/' );
    $uri = urldecode($uri);
-   
    return $uri;
-   
  }
  
 }

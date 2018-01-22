@@ -22,7 +22,7 @@ deny from all
 ############### SET COOKIES DOMAIN ##################
 # Use Mod_deflate to compress static files
 <IfModule mod_deflate.c>
- <filesmatch ".(js|css|ico|txt|htm|html|php)$">
+ <filesmatch ".(js|css|ico|txt|htm|html|png|jpg|gif|js|eot|svg|ttf|woff|woff2|php)$">
  SetOutputFilter DEFLATE
  </filesmatch>
 </IfModule>

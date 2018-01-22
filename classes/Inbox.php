@@ -10,12 +10,12 @@ class Inbox extends Model
 	
   }
   
-  public function sendMessage($sender, $email, $messages, $date_sent, $time_sent)
+  public function sendMessage($sender, $email, $phone, $messages, $date_sent, $time_sent)
   {
-   $sql = "INSERT INTO inbox(sender, email, messages, date_sent, time_sent)
-   		  VALUES(?, ?, ?, ?, ?)";
+   $sql = "INSERT INTO inbox(sender, email, phone, messages, date_sent, time_sent)
+   		  VALUES(?, ?, ?, ?, ?, ?)";
    
-   $data = array($sender, $email, $messages, $date_sent, $time_sent);
+   $data = array($sender, $email, $phone, $messages, $date_sent, $time_sent);
    
    $stmt = $this->statementHandle($sql, $data);
    
@@ -25,7 +25,7 @@ class Inbox extends Model
   
   public function readMessage($id, $sanitizing)
   {
-  	$sql = "SELECT inboxID, sender, email, messages, date_sent, time_sent
+  	$sql = "SELECT ID, sender, email, phone, messages, date_sent, time_sent
   			FROM inbox WHERE inboxID = ?";
   	
   	$cleanId = $this->filteringId($sanitizing, $id, 'sql');
@@ -55,7 +55,7 @@ class Inbox extends Model
   {
   	$cleanMessageId = $this->filteringId($sanitizing, $id, 'sql');
   	
-  	$sql = "DELETE FROM inbox WHERE inboxID = ?";
+  	$sql = "DELETE FROM inbox WHERE ID = ?";
   	
   	$data = array($cleanMessageId);
   	
@@ -69,7 +69,7 @@ class Inbox extends Model
     
       $msg = array();
         
-      $sql = "SELECT inboxID, sender, email, subject, messages, date_sent, time_sent
+      $sql = "SELECT ID, sender, email, phone, messages, date_sent, time_sent
     		  FROM inbox ORDER BY sender DESC LIMIT :position, :limit";
         
       $stmt = $this->dbc->prepare($sql);
@@ -83,7 +83,7 @@ class Inbox extends Model
     	
       }
     	
-    	$numbers = "SELECT inboxID FROM inbox ";
+    	$numbers = "SELECT ID FROM inbox ";
     	$stmt = $this->dbc->query($numbers);
     	$totalMessages = $stmt -> rowCount();
     	
@@ -102,7 +102,7 @@ class Inbox extends Model
   
   public function checkMessageId($id, $sanitizing)
   {
-  	$sql = "SELECT inboxID FROM inbox WHERE inboxID = ?";
+  	$sql = "SELECT ID FROM inbox WHERE inboxID = ?";
   	
   	$stmt = $this->dbc->prepare($sql);
   	
