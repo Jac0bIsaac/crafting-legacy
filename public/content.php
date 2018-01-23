@@ -21,12 +21,7 @@ function grabHome()
   if (empty($data_products['totalProducts'])) $views['unavailable'] = "Product Unavailable";
   
   if (empty($data_posts['totalPosts'])) $views['unpublished'] = "No post";
-  
-  if (isset($_GET['status'])) {
-      
-     if ($_GET['status'] == 'messageSent') $views['statusMessage'] = "Your message sent successfully";
-  }
-  
+   
   require 'home.php';
   
 }
