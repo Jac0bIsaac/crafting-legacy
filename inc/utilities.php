@@ -789,53 +789,102 @@ function tgl_eng_to_ind($tgl)
 }
 
 // make Date
-function makeDate($value)
+function makeDate($value, $locale = null)
 {
-	$day = substr( $value, 8, 2 );
-	$month = getMonth( substr( $value, 5, 2 ) );
-	$year = substr( $value, 0, 4 );
-	return $month . ' ' . $day . ', ' . $year;
+	$day = substr($value, 8, 2 );
+	$month = getMonth(substr( $value, 5, 2 ), $locale);
+	$year = substr($value, 0, 4 );
+	
+	if ($locale == 'id') {
+	    
+	    return $day . ' ' . $month . ' ' . $year;
+	    
+	} else {
+	  
+	    return $month . ' ' . $day . ', ' . $year;
+	    
+	}
+	
 }
 
-function getMonth($value)
+function getMonth($value, $locale = null)
 {
+    
 	switch ($value) {
-		case 1 :
-			return "January";
-			break;
+		
+	    case 1 :
+		    
+		   return (!empty($locale) && $locale == 'id') ? "Januari" : "January";
+			
+		    //return "January";
+		   break;
+		   
 		case 2 :
-			return "February";
+		    
+		    return (!empty($locale) && $locale == 'id') ? "Pebruari" : "February";
+		    //return "February";
 			break;
+			
 		case 3 :
-			return "March";
+		    
+		    return (!empty($locale) && $locale == 'id') ? "Maret" : "March";
+			//return "March";
 			break;
+			
 		case 4 :
-			return "April";
+		    
+		    return (!empty($locale) && $locale == 'id') ? "April" : "April";
+			//return "April";
 			break;
+			
 		case 5 :
-			return "May";
+			
+		    return (!empty($locale) && $locale == 'id') ? "Mei" : "May";
+		    //return "May";
 			break;
+			
 		case 6 :
-			return "June";
+		    
+		    return (!empty($locale) && $locale == 'id') ? "Juni" : "June";
+		    //return "June";
 			break;
 		case 7 :
-			return "July";
+		    
+		    return (!empty($locale) && $locale == 'id') ? "Juli" : "July";
+			//return "July";
 			break;
+			
 		case 8 :
-			return "August";
+			
+		    return (!empty($locale) && $locale == 'id') ? "Agustus" : "August";
+		    
+		    //return "August";
 			break;
+			
 		case 9 :
-			return "September";
+			
+		    return (!empty($locale) && $locale == 'id') ? "September" : "September";
+		    //return "September";
 			break;
+			
 		case 10 :
-			return "October";
+			
+		    return (!empty($locale) && $locale == 'id') ? "Oktober" : "October";
+		    //return "October";
 			break;
+			
 		case 11 :
-			return "November";
+			
+		    return (!empty($locale) && $locale == 'id') ? "November" : "November";
+		    //return "November";
 			break;
+			
 		case 12 :
-			return "December";
+			
+		    return (!empty($locale) && $locale == 'id') ? "Desember" : "December";
+		    //return "December";
 			break;
+			
 	}
 	
 }

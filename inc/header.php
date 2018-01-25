@@ -115,7 +115,7 @@ endif;
 
 function blogHeader($match, $param = null)
 {
-    global $configurations;
+    global $configurations, $posts, $widgets, $frontContent, $sanitize;
     
     $data_configs = $configurations -> findConfigs();
     $configs = $data_configs['results'];
@@ -127,6 +127,13 @@ function blogHeader($match, $param = null)
         $tagline = htmlspecialchars($c['tagline']);
         $phone = htmlspecialchars($c['phone']);
     }
+    
+   if (!empty($param)):
+   $r = $frontContent -> readPost($posts, $param, $sanitize);
+   $post_image = $r['post_image'];
+    
+   $postCategories = $widgets -> setSidebarCategories();
+   $navcats = $postCategories['categories'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -135,11 +142,9 @@ function blogHeader($match, $param = null)
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <?php 
-     if (!empty($param)):
-    ?>
-    <meta name="description" content="<?php echo "$match | $param"; ?>">
-    <meta name="keywords" content="<?php echo "$param"; ?>">
+    
+    <meta name="description" content="<?php echo $match . " | " . $r['post_title']; ?>">
+    <meta name="keywords" content="<?php echo $r['post_title']; ?>">
     <?php 
     else :
     ?>
@@ -149,7 +154,7 @@ function blogHeader($match, $param = null)
     <title>
     <?php 
      if (!empty($param)) : 
-          echo "$match | $param";
+          echo  $r['post_title'];
      else :
           echo "$match | $meta_title | Call Us: $phone";
      
@@ -175,54 +180,67 @@ function blogHeader($match, $param = null)
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="<?php echo APP_DIR; ?>"><i class="fa fa-arrow-left"></i> Back to Homepage</a>
+        <a class="navbar-brand" href="<?php echo APP_DIR; ?>"><i class="fa fa-arrow-left"></i> Home</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+          <?php 
+           foreach ($navcats as $navcat) :
+          ?>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link" href="<?php echo APP_DIR .'category/'.htmlspecialchars($navcat['category_slug']); ?>">
+              <?php echo htmlspecialchars($navcat['category_title']); ?>
+              </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="post.html">Sample Post</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
+          <?php 
+          endforeach;
+          ?>
           </ul>
         </div>
       </div>
     </nav>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('<?php echo APP_PUBLIC; ?>blog/img/home-bg.jpg')">
+    <header class="masthead" style="background-image: url('<?php echo APP_PICTURE . $post_image; ?>')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="site-heading">
+          <?php 
+          $heading = (isset($param) && !empty($param)) ? "post-heading" : "site_heading";
+          ?>
+            <div class="<?php echo $heading; ?>">
               <h1>
                <?php 
                  if (!empty($param)):
                  
-                    echo $param;
+                    echo htmlspecialchars($r['post_title']);
                  
-                 else:
+                 else :
                  
                     echo $meta_title;
                    
                  endif;
                ?>
               </h1>
+              
               <?php
               if (!empty($param)) :
               ?>
-              <span class="subheading"><?php echo $param; ?></span>
+              <span class="meta"><i class="fa fa-user"></i>
+              <a href="#">
+              <?php 
+              echo htmlspecialchars($r['volunteer_login']);
+              ?>
+              </a>
+              <i class="fa fa-calendar"></i>
+              <?php 
+              echo makeDate($r['date_created'], 'id'); 
+              ?>
+              </span>
               <?php 
               else :
               ?>

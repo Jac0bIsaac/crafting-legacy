@@ -2,7 +2,9 @@
 
 $totalProducts = (isset($views['totalProducts'])) ? $views['totalProducts'] : 0;
 $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
+
 ?>
+
 <!-- Product Grid Section -->
     <section id="product">
       <div class="container">
@@ -68,20 +70,26 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
           ?>
              <div class="card text-white bg-info mb-3">
              <div class="card-header ">
-              <i class="fa fa-calendar-o"></i>
+              <i class="fa fa-calendar"></i>
                  <?php 
-                 echo $published = makeDate($post['date_created']);
+                 echo $published = makeDate($post['date_created'], 'id');
                  ?>
              </div>
               <div class="card-body">
-               <h5 class="card-title"><?php echo htmlspecialchars($post['post_title']); ?></h5>
+               <h5 class="card-title">
+               <a href="<?php echo APP_DIR . 'post' . '/' . (int)$post['postID'] . '/'. htmlspecialchars($post['post_slug']); ?>" title="<?php echo $post['post_title']; ?>">
+               <?php echo htmlspecialchars($post['post_title']); ?>
+               </a>
+               </h5>
                <?php 
                $article = strip_tags($post['post_content']);
                $article_content = substr($article, 0, 200);
                $article_content = substr($article, 0, strrpos($article_content, " "));
                ?>
                <p class="card-text"><?php echo html_entity_decode($article_content); ?></p>
-              <a href="<?php echo APP_DIR . 'post' . '/' . (int)$post['postID'] . '/'. htmlspecialchars($post['post_slug']); ?>" class="btn btn-primary">Read More ...</a>
+              <a href="<?php echo APP_DIR . 'post' . '/' . (int)$post['postID'] . '/'. htmlspecialchars($post['post_slug']); ?>" title="<?php echo $post['post_title'] ?>" class="btn btn-primary">
+              Lanjutkan membaca 
+              <i class="fa fa-arrow-right"></i></a>
              </div>
            </div>
            <?php 
@@ -164,7 +172,7 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
               </p>
           </div>
           <div class="col-lg-4 mr-auto">
-            <p>Our common goal is making solution that matters for thousands of micro 
+            <p>Our common goal is making solution that delightfully useful for thousands of micro 
              and small business owners so that they can sell, sell, sell more.</p>
           </div>
           

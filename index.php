@@ -16,7 +16,7 @@ $parameters = (isset($matched) || is_array($action)
     || is_array($dispatching->URLElement(2))) ? $param1 : $param2;
     
 if ($action == 'posts' || $action == 'post') {
-   blogHeader($action, $param2);
+   blogHeader($action, $param1);
 } elseif ($action == 'contact') {
    contactHeader(); 
 } else {

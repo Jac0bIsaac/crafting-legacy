@@ -29,9 +29,73 @@ function grabHome()
 // blog content
 function grabPost($param = null)
 {
+ global $dbc, $posts, $post_cats, $widgets, $frontContent, $sanitize, $frontPaginator;
  
+ $views = array();
  
- require 'posts.php';
+ if (!is_null($param)) {
+     
+   $read = $frontContent -> readPost($posts, $param, $sanitize);
+   
+   if (!$read) {
+       
+      ErrorNotFound();
+      
+   } else {
+       
+       // show detail post
+       $views['post_id'] = (int)$read['postID'];
+       $views['post_title'] = htmlspecialchars($read['post_title']);
+       $views['post_image'] = htmlspecialchars($read['post_image']);
+       $views['post_slug'] = htmlspecialchars($read['post_slug']);
+       $views['post_content'] = html_entity_decode($read['post_content']);
+       $views['post_created'] = makeDate($read['date_created']);
+       $views['post_status'] = $read['post_status'];
+       $views['comment_status'] = $read['comment_status'];
+       $views['post_author'] = htmlspecialchars($read['volunteer_login']);
+       
+       // related posts
+       $data_related_post = $posts -> showRelatedPosts((int)$read['postID']);
+       $views['relatedPosts'] = $data_related_post['relatedPosts'];
+       
+       // previous next link article
+       $dataLinkNext = $widgets -> setNextNavigation($read['postID'], $sanitize);
+       $dataLinkPrev = $widgets -> setPrevNavigation($read['postID'], $sanitize);
+       $views['linkNext'] = $dataLinkNext['results'];
+       $views['linkPrev'] = $dataLinkPrev['results'];
+       
+       require 'post.php';
+       
+   } 
+   
+ } else {
+     
+     $postsPublished = $frontContent -> grabAllPosts($posts, $frontPaginator, $sanitize);
+     
+     if (empty($postsPublished['totalRows'])) {
+         
+         $views['errorMessage'] = "Sorry, there aren't any posts published";
+         
+     } else {
+         
+         $views['allPosts'] = $postsPublished['allPostsPublished'];
+         $views['totalPostPublished'] = $postsPublished['totalRows'];
+         $views['pageLink'] = $postsPublished['paginationLink'];
+         
+         // list categories on sidebar
+         $postCategories = $widgets -> setSidebarCategories();
+         $views['postCategories'] = $postCategories['categories'];
+         
+         // recent posts on sidebar
+         $recentPosts = $widgets -> showRecentPosts('publish', 0, 3);
+         $views['recentPosts'] = $recentPosts['recentPosts'];
+         
+     }
+     
+    require 'posts.php';
+     
+ }
+ 
 }
 
 // submit message from contact form
@@ -111,8 +175,8 @@ function submitMessage()
      
  } catch (InboxException $e) {
      
-     $views['errorMessage'] = $e -> getMessage();
-     include 'contact.php';
+   $views['errorMessage'] = $e -> getMessage();
+   include 'contact.php';
      
  }
  
