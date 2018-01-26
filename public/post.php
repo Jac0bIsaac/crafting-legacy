@@ -23,6 +23,12 @@ if ($post_id) :
             <?php echo $post_content; ?>
             </p>
           </div>
+           <div class="col-lg-8 col-md-10 mx-auto">
+           <nav class="blog-pagination">
+            <a class="btn btn-outline-primary" href="#">Older</a>
+            <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+          </nav>
+           </div>
         </div>
       </div>
 </article>
