@@ -23,15 +23,26 @@ if ($post_id) :
             <?php echo $post_content; ?>
             </p>
           </div>
-<<<<<<< HEAD
+
            <div class="col-lg-8 col-md-10 mx-auto">
            <nav class="blog-pagination">
-            <a class="btn btn-outline-primary" href="#">Older</a>
-            <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+           <?php 
+           foreach ($views['linkPrev'] as $previous) :
+           ?>
+            <a class="btn btn-outline-primary" href="<?php echo APP_DIR.'post'. '/'.(int)$previous['postID'].'/'.$previous['post_slug']; ?>">Baca sebelumnya</a>
+           <?php
+           endforeach;
+           ?>
+           <?php 
+           foreach ($views['linkNext'] as $next) :
+           ?>
+            <a class="btn btn-outline-secondary" href="<?php echo APP_DIR.'post'.'/'.(int)$next['postID'].'/'.$next['post_slug'] ;?>">Baca selanjutnya</a>
+           <?php 
+           endforeach;
+           ?>
           </nav>
            </div>
-=======
->>>>>>> f4c4583744ab4776c3a983d4c666b6ef39fb2510
+
         </div>
       </div>
 </article>
