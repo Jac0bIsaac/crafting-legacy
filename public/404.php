@@ -1,6 +1,6 @@
 <section>
  <div class="container">
-  <h2 class="text-center">Error 404</h2>
+  <h3 class="text-center">Page Not Found</h3>
    <hr class="star-primary">
  </div>
 </section>

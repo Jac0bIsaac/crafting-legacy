@@ -26,29 +26,18 @@ class LogError
 	public static function customErrorMessage()
 	{
 		 
-	echo '<section class="row page-header">
-          <div class="container">
-           <h4>ERROR</h4>
-          </div>
-          </section>';
-	    
-	  echo '<section class="row blog-content page-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                            
-   <div class="alert alert-danger alert-dismissable">
-			
-          <h3>ERROR!</h3>	
-          <p> 
-           Please check your error log and send it to - email: webdev@kartatopia.com </p>
-				
-    </div>      
-                     
-                </div>
-             </div>
-        </div>
-    </section>';
+	 echo '<article>';
+	 echo '<div class="container">';
+	 echo '<div class="row">';
+	 echo '<div class="col-lg-8 col-md-10 mx-auto">';
+	 echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>ERROR!</strong><br>
+          Please check your error log and send it to: alanmoehammad@gmail.com
+          </div>';
+	 echo '</div>';
+	 echo '</div>';
+	 echo '</div>';
+	 echo '</article>';
 	  
 	  exit();
 			

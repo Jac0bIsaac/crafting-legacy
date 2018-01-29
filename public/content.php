@@ -70,11 +70,11 @@ function grabPost($param = null)
    
  } else {
      
-     $postsPublished = $frontContent -> grabAllPosts($posts, $frontPaginator, $sanitize);
+    $postsPublished = $frontContent -> grabAllPosts($posts, $frontPaginator, $sanitize);
      
-     if (empty($postsPublished['totalRows'])) {
+    if (empty($postsPublished['totalRows'])) {
          
-         $views['errorMessage'] = "Sorry, there aren't any posts published";
+      $views['errorMessage'] = "Sorry, there aren't any posts published";
          
      } else {
          
@@ -97,6 +97,12 @@ function grabPost($param = null)
  }
  
 }
+
+function grabCategories()
+{
+    
+}
+
 
 // submit message from contact form
 function submitMessage()

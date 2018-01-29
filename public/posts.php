@@ -1,63 +1,48 @@
-    <!-- Main Content -->
+<!-- Main Content -->
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
+<?php 
+if (isset($views['errorMessage'])) :
+?>
+<div class="alert alert-danger alert-dismissable">			
+<h3>ERROR !</h3>	
+<p><strong><?= $views['errorMessage']; ?></strong></p>
+</div>
+<?php 
+else : 
+ foreach (array_values($views['allPosts']) as $allPost => $p) :
+?>
+
           <div class="post-preview">
-            <a href="post.html">
+            <a href="<?= APP_DIR . 'post/'.(int)$p['postID'].'/'.htmlspecialchars($p['post_slug']); ?>" title="<?= $p['post_title']; ?>">
               <h2 class="post-title">
-                Man must explore, and this is exploration at its greatest
+                <?php 
+                echo htmlspecialchars($p['post_title']);
+                ?>
               </h2>
-              <h3 class="post-subtitle">
-                Problems look mighty small from 150 miles up
-              </h3>
+<?php 
+$article = strip_tags($p['post_content']);
+$paragraph_article = substr($article, 0, 240);
+$paragraph_article = substr($article, 0, strrpos($paragraph_article, " "));
+?>
+            <h3 class="post-subtitle">
+            <?= html_entity_decode($paragraph_article); ?>       
+             </h3>
             </a>
-            <p class="post-meta">Posted by
-              <a href="#">Start Bootstrap</a>
-              on September 24, 2017</p>
+            <p class="post-meta"><i class="fa fa-user"></i>
+              <a href="#"><?= htmlspecialchars($p['volunteer_login']); ?></a>
+              <i class="fa fa-calendar"></i>
+             <?= makeDate($p['date_created'], 'id'); ?>
+             </p>
           </div>
           <hr>
-          <div class="post-preview">
-            <a href="post.html">
-              <h2 class="post-title">
-                I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-              </h2>
-            </a>
-            <p class="post-meta">Posted by
-              <a href="#">Start Bootstrap</a>
-              on September 18, 2017</p>
-          </div>
-          <hr>
-          <div class="post-preview">
-            <a href="post.html">
-              <h2 class="post-title">
-                Science has not yet mastered prophecy
-              </h2>
-              <h3 class="post-subtitle">
-                We predict too much for the next year and yet far too little for the next ten.
-              </h3>
-            </a>
-            <p class="post-meta">Posted by
-              <a href="#">Start Bootstrap</a>
-              on August 24, 2017</p>
-          </div>
-          <hr>
-          <div class="post-preview">
-            <a href="post.html">
-              <h2 class="post-title">
-                Failure is not an option
-              </h2>
-              <h3 class="post-subtitle">
-                Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-              </h3>
-            </a>
-            <p class="post-meta">Posted by
-              <a href="#">Start Bootstrap</a>
-              on July 8, 2017</p>
-          </div>
-          <hr>
+<?php 
+endforeach; endif;
+?>
           <!-- Pager -->
           <div class="clearfix">
-            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            <?=(isset($views['totalPostPublished']) && $views['totalPostPublished'] > 0) ? $views['pageLink'] : ""; ?> 
           </div>
         </div>
       </div>

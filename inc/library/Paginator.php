@@ -150,7 +150,7 @@ class Paginator
 		        $pagination .= '<ul class="pagination">';
 		        
 		        if ($this->_page > 1)
-		            $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($prev, 'sql')}"."$ext'><i class='fa fa-angle-left'></i></a></li>";
+		            $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($prev, 'sql')}"."$ext'><i class='fa fa-angle-left'></i></a></li>";
 		        /*else
 		            $pagination.= '<li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>';
 		            */
@@ -160,9 +160,9 @@ class Paginator
 		            for ($counter = 1; $counter <= $lastpage; $counter++) {
 		                 
 		               if ($counter == $this->_page)
-		                   $pagination.= "<li class='active'><a href='#'>$counter</a></li>";
+		                   $pagination.= "<li class='active'><a class='btn btn-outline-secondary' href='#'>$counter</a></li>";
 		               else
-		                   $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($counter, 'sql')}"."$ext'>$counter</a></li>";
+		                   $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($counter, 'sql')}"."$ext'>$counter</a></li>";
 		            
 		            }
 		              
@@ -175,47 +175,47 @@ class Paginator
 		                       if ($counter == $this->_page)
 		                            $pagination.= "<li class='active'><a href='#'>$counter</a></li>";
 		                       else
-		                           $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($counter, 'sql')}"."$ext'>$counter</a></li>";
+		                           $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($counter, 'sql')}"."$ext'>$counter</a></li>";
 		                   
 		               }
 		                        
 		                   $pagination.= "...";
 		                        
-		                   $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($lpm1, 'sql')}"."$ext'>$lpm1</a></li>";
+		                   $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($lpm1, 'sql')}"."$ext'>$lpm1</a></li>";
 		                        
-		                   $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($lastpage, 'sql')}"."$ext'>$lastpage</a></li>";
+		                   $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($lastpage, 'sql')}"."$ext'>$lastpage</a></li>";
 		                    
 		         } elseif($lastpage - ($adjacents * 2) > $this->_page && $this->_page > ($adjacents * 2)) {
 		                   
-		             $pagination.= "<li><a href='".$path."$this->_instance=1"."$ext'>1</a></li>";
-		             $pagination.= "<li><a href='".$path."$this->_instance=2"."$ext'>2</a></li>";
+		             $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance=1"."$ext'>1</a></li>";
+		             $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance=2"."$ext'>2</a></li>";
 		               $pagination.= "...";
 		                        
 		             for ($counter = $this->_page - $adjacents; $counter <= $this->_page + $adjacents; $counter++) {
 		                 
 		                  if ($counter == $this->_page)
 		                      
-		                      $pagination.= "<li class='active'><a href='#'>$counter</a></li>";
+		                      $pagination.= "<li class='active'><a class='btn btn-outline-secondary' href='#'>$counter</a></li>";
 		                  else
 		                      $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($counter, 'sql')}"."$ext'>$counter</a></li>";
 		             }
 		                        
 		              $pagination.= "..";
-		              $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($lpm1, 'sql')}"."$ext'>$lpm1</a></li>";
-		              $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($lastpage, 'sql')}"."$ext'>$lastpage</a></li>";
+		              $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($lpm1, 'sql')}"."$ext'>$lpm1</a></li>";
+		              $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($lastpage, 'sql')}"."$ext'>$lastpage</a></li>";
 		                    
 		         } else {
 		             
-		             $pagination.= "<li><a href='".$path."$this->_instance=1"."$ext'>1</a></li>";
-		             $pagination.= "<li><a href='".$path."$this->_instance=2"."$ext'>2</a></li>";
+		             $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance=1"."$ext'>1</a></li>";
+		             $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance=2"."$ext'>2</a></li>";
 		         $pagination.= "..";
 		                        
 		           for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++) {
 		             
 		            if ($counter == $this->_page)
-		                 $pagination.= "<li><a href='#'>$counter</a></li>";
+		                 $pagination.= "<li><a class='btn btn-outline-secondary' href='#'>$counter</a></li>";
 		            else
-		                $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($counter, 'sql')}"."$ext'>$counter</a></li>";
+		                $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($counter, 'sql')}"."$ext'>$counter</a></li>";
 		           }
 		           
 		        }
@@ -223,7 +223,7 @@ class Paginator
 		      }
 		                
 		     if ($this->_page < $counter - 1)
-		         $pagination.= "<li><a href='".$path."$this->_instance={$this->_sanitize->sanitasi($next, 'sql')}"."$ext'><i class='fa fa-angle-right'></i></a></li>";
+		         $pagination.= "<li><a class='btn btn-outline-secondary' href='".$path."$this->_instance={$this->_sanitize->sanitasi($next, 'sql')}"."$ext'><i class='fa fa-angle-right'></i></a></li>";
 		      /*else
 		         $pagination.= "<li><a href='#'><i class='fa fa-angle-double-right'></i></a></li>";
 		       */

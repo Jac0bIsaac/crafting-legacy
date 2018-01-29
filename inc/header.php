@@ -51,7 +51,7 @@ function setHeader($match, $param = null)
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <a href="<?php echo APP_DIR; ?>" class="navbar-brand js-scroll-trigger" href="#page-top">
-        <img class="img-fluid" alt="kartatopia" src="public/home/img/kartatopia.png">
+        <img class="img-fluid" alt="kartatopia" src="<?php echo APP_PUBLIC; ?>home/img/kartatopia.png">
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
@@ -78,7 +78,7 @@ function setHeader($match, $param = null)
 
     <!-- Header -->
  <?php 
- if (!$match) :
+ if (!$match && empty($param)) :
  
  ?>
   
@@ -115,7 +115,7 @@ endif;
 
 function blogHeader($match, $param = null)
 {
-    global $configurations, $posts, $widgets, $frontContent, $sanitize;
+    global $configurations, $posts, $widgets, $frontContent, $frontPaginator, $sanitize;
     
     $data_configs = $configurations -> findConfigs();
     $configs = $data_configs['results'];
@@ -128,12 +128,21 @@ function blogHeader($match, $param = null)
         $phone = htmlspecialchars($c['phone']);
     }
     
-   if (!empty($param)):
-   $r = $frontContent -> readPost($posts, $param, $sanitize);
-   $post_image = $r['post_image'];
+   // get all post published
+   $postPublished = $frontContent -> grabAllPosts($posts, $frontPaginator, $sanitize);
+   $totalPostPublished = $postPublished['totalRows'];
     
+   // get post categories
    $postCategories = $widgets -> setSidebarCategories();
    $navcats = $postCategories['categories'];
+    
+   // get detail post
+   if (!empty($param)) {
+   $r = $frontContent -> readPost($posts, $param, $sanitize);
+   $post_image = $r['post_image'];
+   $postId = (int)$r['postID'];
+   }
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,15 +151,20 @@ function blogHeader($match, $param = null)
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    <?php 
+    if (!empty($param)):
+    ?> 
     <meta name="description" content="<?php echo $match . " | " . $r['post_title']; ?>">
     <meta name="keywords" content="<?php echo $r['post_title']; ?>">
     <?php 
     else :
     ?>
     <meta name="description" content="<?php echo "$match-$meta_desc"; ?>">
-    <meta name="keywords" content="<?php echo " $param-$meta_key"; ?>">
-   <?php endif; ?>
+    <meta name="keywords" content="<?php echo "$param-$meta_key"; ?>">
+   <?php 
+   endif; 
+   ?>
+   
     <title>
     <?php 
      if (!empty($param)) : 
@@ -172,7 +186,8 @@ function blogHeader($match, $param = null)
 
     <!-- Custom styles for this template -->
     <link href="<?php echo APP_PUBLIC; ?>blog/css/clean-blog.min.css" rel="stylesheet">
-
+    <link href="<?php echo APP_PUBLIC; ?>blog/css/pagination.css" rel="stylesheet">
+    
   </head>
 
   <body>
@@ -187,8 +202,26 @@ function blogHeader($match, $param = null)
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+          
+         <?php 
+         if (isset($totalPostPublished) && $totalPostPublished > 0) :
+         ?>
+         <li class="nav-item">
+          <a class="nav-link" href="<?php echo APP_DIR . 'posts'; ?>" title="All Posts">
+           Posts
+          </a>
+         </li>
+         <?php 
+         endif;
+         ?>
+         <?php 
+         if (isset($navcats)) :
+         ?>  
+        
           <?php 
+           
            foreach ($navcats as $navcat) :
+            
           ?>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo APP_DIR .'category/'.htmlspecialchars($navcat['category_slug']); ?>">
@@ -197,6 +230,7 @@ function blogHeader($match, $param = null)
             </li>
           <?php 
           endforeach;
+          endif;
           ?>
           </ul>
         </div>
@@ -204,32 +238,22 @@ function blogHeader($match, $param = null)
     </nav>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('<?php echo APP_PICTURE . $post_image; ?>')">
+    <?php 
+    if (!empty($param)) :
+    ?>
+   
+     <header class="masthead" style="background-image: url('<?php echo APP_PICTURE . $post_image; ?>')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-          <?php 
-          $heading = (isset($param) && !empty($param)) ? "post-heading" : "site_heading";
-          ?>
-            <div class="<?php echo $heading; ?>">
+            <div class="post-heading">
               <h1>
-               <?php 
-                 if (!empty($param)):
-                 
-                    echo htmlspecialchars($r['post_title']);
-                 
-                 else :
-                 
-                    echo $meta_title;
-                   
-                 endif;
-               ?>
-              </h1>
-              
               <?php
-              if (!empty($param)) :
+              echo htmlspecialchars($r['post_title']);
               ?>
+              </h1>
+            
               <span class="meta"><i class="fa fa-user"></i>
               <a href="#">
               <?php 
@@ -241,19 +265,32 @@ function blogHeader($match, $param = null)
               echo makeDate($r['date_created'], 'id'); 
               ?>
               </span>
-              <?php 
-              else :
-              ?>
-              <span class="subheading"><?php echo "$tagline | $phone"; ?></span>
-              <?php 
-              endif;
-              ?>
             </div>
           </div>
         </div>
       </div>
     </header>
-
+    
+    <?php
+    else :
+    ?>
+      <header class="masthead" style="background-image: url('public/blog/img/teamwork.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1><?php echo $meta_title; ?></h1>
+              <span class="subheading"><?php echo "$tagline | $phone"; ?></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <?php 
+    endif;
+    ?>
+ 
 <?php 
 }
 
