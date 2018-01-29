@@ -224,7 +224,7 @@ function blogHeader($match, $param = null)
             
           ?>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo APP_DIR .'category/'.htmlspecialchars($navcat['category_slug']); ?>">
+              <a class="nav-link" href="<?php echo APP_DIR .'category/'.htmlspecialchars($navcat['category_slug']); ?>" title="<?= $navcat['category_title']; ?>">
               <?php echo htmlspecialchars($navcat['category_title']); ?>
               </a>
             </li>
