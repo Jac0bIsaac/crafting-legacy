@@ -125,10 +125,10 @@ function blogFooter()
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="https://github.com/kartatopia" title="free and open source e-commerce software">
+                <a href="#" title="RSS Feeds">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                    <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
                   </span>
                 </a>
               </li>
