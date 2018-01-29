@@ -97,4 +97,4 @@ $dashboards = new Dashboard();
 $widgets = new Widget();
 $dispatching = new Dispatcher();
 $frontContent = new FrontContent();
-$frontPaginator = new Paginator(1, 'p');
+$frontPaginator = new Paginator(12, 'p');
