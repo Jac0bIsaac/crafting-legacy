@@ -26,7 +26,7 @@ function grabHome()
   
 }
 
-// blog content
+// post
 function grabPost($param = null)
 {
  global $dbc, $posts, $post_cats, $widgets, $frontContent, $sanitize, $frontPaginator;
@@ -98,8 +98,31 @@ function grabPost($param = null)
  
 }
 
-function grabCategories()
+// post category
+function grabCategory($param)
 {
+ global $categories, $post_cats, $frontContent, $sanitize;
+    
+ $views = array();
+    
+ $catId = $categories -> findCategoryBySlug($param, $sanitize);
+    
+ if (!$catId) ErrorNotFound();
+    
+    $catPost = $frontContent -> grabCategoryPost($post_cats, (int)$catId['categoryID'], $sanitize);
+    
+ if (empty($catPost['totalRows'])) {
+        
+    $views['errorMessage'] = "Sorry, there aren't any posts published";
+        
+ } else {
+        
+    $views['catPosts'] = $catPost['catPosts'];
+    $views['totalCatPost'] = $catPost['totalRows'];
+    
+ }
+    
+  require 'category.php';
     
 }
 

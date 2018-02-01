@@ -15,6 +15,7 @@ function setHeader($match, $param = null)
    $views['tagline'] = htmlspecialchars($m['tagline']);
    $views['phone'] = htmlspecialchars($m['phone']);
  }
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,7 +116,9 @@ endif;
 
 function blogHeader($match, $param = null)
 {
-    global $configurations, $posts, $widgets, $frontContent, $frontPaginator, $sanitize;
+    global $configurations, $posts, $post_cats, $categories, $widgets, $frontContent, $frontPaginator, $sanitize;
+    
+    $views = array();
     
     $data_configs = $configurations -> findConfigs();
     $configs = $data_configs['results'];
@@ -137,12 +140,26 @@ function blogHeader($match, $param = null)
    $navcats = $postCategories['categories'];
     
    // get detail post
-   if (!empty($param)) {
-   $r = $frontContent -> readPost($posts, $param, $sanitize);
-   $post_image = $r['post_image'];
-   $postId = (int)$r['postID'];
+   if (($match == 'post') && (!empty($param))) {
+    
+      $r = $frontContent -> readPost($posts, $param, $sanitize);
+      
+      $post_image = isset($r['post_image']) ? $r['post_image'] : '';
+      $postId = (int)$r['postID'];
+      $post_title = isset($r['post_title']) ? htmlspecialchars($r['post_title']) : '';
+      $date_published = isset($r['date_created']) ? makeDate($r['date_created'], 'id') : '';
+      $author = isset($r['volunteer_login']) ? htmlspecialchars($r['volunteer_login']) : '';
+      $post_slug = isset($r['post_slug']) ? htmlspecialchars($r['post_slug']) : '';
+    
+   } elseif (($match == 'category') && (!empty($param))) {
+     
+      $getCat = $categories -> findCategoryBySlug($param, $sanitize);
+      $category_title = htmlspecialchars($getCat['category_title']);
+      
    }
    
+   
+   // get detail category
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -152,10 +169,15 @@ function blogHeader($match, $param = null)
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php 
-    if (!empty($param)):
+    if (($match == 'post') && (!empty($param))):
     ?> 
-    <meta name="description" content="<?php echo $match . " | " . $r['post_title']; ?>">
-    <meta name="keywords" content="<?php echo $r['post_title']; ?>">
+    <meta name="description" content="<?php echo $match . " | " . $post_title; ?>">
+    <meta name="keywords" content="<?php echo $post_title; ?>">
+    <?php 
+    elseif (($match == 'category') && (!empty($param))) :
+    ?>
+    <meta name="description" content="<?php echo $match . " | " . $category_title; ?>">
+    <meta name="keywords" content="<?php echo $category_title; ?>">
     <?php 
     else :
     ?>
@@ -164,13 +186,17 @@ function blogHeader($match, $param = null)
    <?php 
    endif; 
    ?>
-   
-    <title>
+  
+  <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72ddf710fe560012c5e7a4&product=social-ab' async='async'></script> 
+      
+  <title>
     <?php 
-     if (!empty($param)) : 
-          echo  $r['post_title'];
+     if (($match == 'post') && (!empty($param))) : 
+         echo  $post_title;
+     elseif (($match == 'category') && (!empty($param))) :
+         echo $category_title;
      else :
-          echo "$match | $meta_title | Call Us: $phone";
+         echo "$match | $meta_title | Call Us: $phone";
      
       endif;    
     ?> 
@@ -239,7 +265,7 @@ function blogHeader($match, $param = null)
 
     <!-- Page Header -->
     <?php 
-    if (!empty($param)) :
+    if (($match == 'post') && (!empty($param))) :
     ?>
    
      <header class="masthead" style="background-image: url('<?php echo APP_PICTURE . $post_image; ?>')">
@@ -250,20 +276,39 @@ function blogHeader($match, $param = null)
             <div class="post-heading">
               <h1>
               <?php
-              echo htmlspecialchars($r['post_title']);
+              echo htmlspecialchars($post_title);
               ?>
               </h1>
             
               <span class="meta"><i class="fa fa-user"></i>
               <a href="#">
               <?php 
-              echo htmlspecialchars($r['volunteer_login']);
+              echo htmlspecialchars($author);
               ?>
               </a>
               <i class="fa fa-calendar"></i>
               <?php 
-              echo makeDate($r['date_created'], 'id'); 
+              echo $date_published; 
               ?>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <?php 
+    elseif (($match == 'category') && (!empty($param))) :
+    ?>
+    
+    <header class="masthead" style="background-image: url('<?php echo APP_DIR; ?>public/blog/img/250087_40percent.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1><?php echo $category_title; ?></h1>
+              <span class="subheading">
+               <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px;" href="https://unsplash.com/@rawpixel?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from rawpixel.com"><span style="display:inline-block;padding:2px 3px;"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white;" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z"></path></svg></span><span style="display:inline-block;padding:2px 3px;">rawpixel.com</span></a>
               </span>
             </div>
           </div>
@@ -274,7 +319,7 @@ function blogHeader($match, $param = null)
     <?php
     else :
     ?>
-      <header class="masthead" style="background-image: url('public/blog/img/teamwork.jpg')">
+      <header class="masthead" style="background-image: url('<?php echo APP_DIR; ?>public/blog/img/teamwork.jpg')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">

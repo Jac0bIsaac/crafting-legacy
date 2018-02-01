@@ -15,7 +15,7 @@ $parameters = (isset($matched) || is_array($action)
     || is_array($dispatching->URLElement(1))
     || is_array($dispatching->URLElement(2))) ? $param1 : $param2;
     
-if ($action == 'posts' || $action == 'post') {
+if ($action == 'posts' || $action == 'post' || $action == 'category') {
    blogHeader($action, $param1);
 } elseif ($action == 'contact') {
    contactHeader(); 
@@ -52,6 +52,20 @@ if (!$action) {
            
            break;
            
+       case 'category':
+           
+           if ($parameters) {
+               
+               checkDetailRequest($action, $param1);
+               
+           } else {
+               
+               ErrorNotFound();
+               
+           }
+           
+           break;
+           
        case 'contact':
            
            submitMessage();
@@ -68,7 +82,7 @@ if (!$action) {
    
 }
 
-if ($action == 'posts' || $action == 'post') {
+if ($action == 'posts' || $action == 'post' || $action == 'category') {
     
    blogFooter();
    

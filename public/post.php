@@ -19,6 +19,7 @@ if ($post_id) :
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="sharethis-inline-share-buttons"></div>
             <p>
             <?php echo $post_content; ?>
             </p>

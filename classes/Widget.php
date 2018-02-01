@@ -12,7 +12,8 @@ class Widget extends Model
   $id_sanitized = $sanitize -> sanitasi($currentId, 'sql');
   
   $nextQuery = "SELECT postID, post_title, post_slug, post_type
-                FROM posts WHERE postID > '$id_sanitized' AND post_type = 'blog' 
+                FROM posts WHERE postID > '$id_sanitized' 
+                AND post_type = 'blog' 
                 ORDER BY postID LIMIT 1";
   
   $stmt = $this->dbc->query($nextQuery);
@@ -35,8 +36,9 @@ class Widget extends Model
    $id_sanitized = $sanitize -> sanitasi($currentId, 'sql');
      
    $prevQuery = "SELECT postID, post_title, post_slug, post_type 
-                 FROM posts WHERE postID < '$id_sanitized' AND post_type = 'blog' 
-                 ORDER BY postID DESC LIMIT 1";
+                 FROM posts WHERE postID < '$id_sanitized' 
+                 AND post_type = 'blog' 
+                 ORDER BY postID LIMIT 1";
      
    $stmt = $this->dbc-> query($prevQuery);
      
