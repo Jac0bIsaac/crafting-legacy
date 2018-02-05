@@ -32,7 +32,7 @@ function grabPost($param = null)
  global $dbc, $posts, $post_cats, $widgets, $frontContent, $sanitize, $frontPaginator;
  
  $views = array();
- 
+  
  if (!is_null($param)) {
      
    $read = $frontContent -> readPost($posts, $param, $sanitize);
@@ -57,7 +57,7 @@ function grabPost($param = null)
        // related posts
        $data_related_post = $posts -> showRelatedPosts((int)$read['postID']);
        $views['relatedPosts'] = $data_related_post['relatedPosts'];
-       
+      
        // previous next link article
        $dataLinkNext = $widgets -> setNextNavigation($read['postID'], $sanitize);
        $dataLinkPrev = $widgets -> setPrevNavigation($read['postID'], $sanitize);

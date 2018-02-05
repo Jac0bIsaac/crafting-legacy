@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>http://www.kartatopia.com/</loc>
+  <lastmod>2018-02-03T10:28:39+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://www.kartatopia.com/post/3/giving-to-the-community</loc>
+  <lastmod>2018-02-03T10:28:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.kartatopia.com/post/2/volunteerism</loc>
+  <lastmod>2018-02-03T10:28:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.kartatopia.com/post/1/headlines-2</loc>
+  <lastmod>2018-02-03T10:28:39+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://www.kartatopia.com/posts</loc>
+  <lastmod>2018-02-03T10:28:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.kartatopia.com/category/uncategorized</loc>
+  <lastmod>2018-02-03T10:28:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://www.kartatopia.com/category/news</loc>
+  <lastmod>2018-02-03T10:28:39+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

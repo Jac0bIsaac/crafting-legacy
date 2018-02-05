@@ -11,6 +11,7 @@ $post_content = isset($views['post_content']) ? $views['post_content'] : "";
 $comment_status = isset($views['comment_status']) ? $views['comment_status'] :"";
 $sidebarPost = isset($views['sidebar']) ? $views['sidebar'] : "";
 
+
 if ($post_id) :
 
 ?>    
@@ -43,7 +44,30 @@ if ($post_id) :
            ?>
           </nav>
            </div>
-
+        
+        <div class="col-lg-8 col-md-10 mx-auto">
+        <?php 
+        if ($comment_status == 'open') :
+        ?>
+    <div id="wpac-comment"></div>
+<script type="text/javascript">
+wpac_init = window.wpac_init || [];
+wpac_init.push({widget: 'Comment', id: 9470});
+(function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = 'https://embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+})();
+</script>
+<a href="https://widgetpack.com" class="wpac-cr">Comments System WIDGET PACK</a>    
+        <?php 
+        endif;
+        ?>
+        </div>
         </div>
       </div>
 </article>

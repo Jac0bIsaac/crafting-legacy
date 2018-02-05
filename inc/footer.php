@@ -20,7 +20,7 @@ function setFooter()
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="https://plus.google.com/u/0/112507269401413909774">
+                  <a class="btn-social btn-outline" href="https://plus.google.com/+kartatopiastudio">
                     <i class="fa fa-fw fa-google-plus"></i>
                   </a>
                 </li>
@@ -93,7 +93,7 @@ function setFooter()
 
     <!-- Custom scripts for this template -->
     <script src="<?php echo APP_PUBLIC; ?>home/js/freelancer.min.js"></script>
-    
+   
   </body>
 
 </html>
@@ -158,7 +158,7 @@ function blogFooter()
 
     <!-- Custom scripts for this template -->
     <script src="<?php echo APP_PUBLIC; ?>blog/js/clean-blog.min.js"></script>
-
+    
   </body>
 
 </html>
