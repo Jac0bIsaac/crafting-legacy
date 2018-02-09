@@ -41,7 +41,7 @@ class RssFeed
    return fopen($filename, $mode);
  }
  
- public function generatePostFeed($title, $link)
+ public function generatePostFeed($title, $link, $description)
  {
    $dataPosts = $this->getPostFeed();
    
@@ -52,7 +52,7 @@ class RssFeed
                    <channel> 
                   <title>'.$title.'</title> 
                   <link>'.$link.'</link> 
-                  <description>Feed Description</description> 
+                  <description>'.$description.'</description> 
                   <language>id</language>';
    
    fwrite($rssFile, $headerInit);
