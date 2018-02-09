@@ -66,20 +66,20 @@ class RssFeed
      $published = date(DATE_RSS, strtotime($dataPost['date_created']));
      
      // paragraf
-     $content = html_entity_decode(strip_tags(nl2br($dataPost['post_content'])));
-     $paragraph = substr($content, 0, 500);
+     $content = htmlentities(strip_tags(nl2br(html_entity_decode($dataPost['post_content']))));
+     $paragraph = substr($content, 0, 220);
      $paragraph = substr($content, 0, strrpos($paragraph," "));
      
      // uniquid
      $guid = uniqid($dataPost['postID']);
      
-     $body = "<item>
-             <title>{$dataPost['post_title']}</title>
-             <description>{$paragraph}...</description>
-             <link>{$url}</link>
-             <guid>{$guid}</guid>
-             <pubDate>{$published}</pubDate>
-             </item>";
+     $body = '<item>
+             <title>'.$dataPost['post_title'].'</title>
+             <description>'.$paragraph.'..</description>
+             <link>'.$url.'</link>
+             <guid>'.$guid.'</guid>
+             <pubDate>'.$published.'</pubDate>
+             </item>';
      
      fwrite($rssFile, $body);
      
