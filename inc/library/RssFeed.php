@@ -48,8 +48,9 @@ class RssFeed
    $rssFile = $this->setFileXML('rss.xml', 'w');
    
    $headerInit = '<?xml version="1.0" encoding="UTF-8"?> 
-                   <rss version="2.0"> 
-                   <channel> 
+                   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"> 
+                   <channel>
+                   <atom:link href="'.$link.'rss.xml" rel="self" type="application/rss+xml" /> 
                   <title>'.$title.'</title> 
                   <link>'.$link.'</link> 
                   <description>'.$description.'</description> 
@@ -77,7 +78,7 @@ class RssFeed
              <title>'.$dataPost['post_title'].'</title>
              <description>'.$paragraph.'..</description>
              <link>'.$url.'</link>
-             <guid>'.$guid.'</guid>
+             <guid isPermaLink="false">'.$guid.'</guid>
              <pubDate>'.$published.'</pubDate>
              </item>';
      

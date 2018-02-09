@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-                   <rss version="2.0"> 
-                   <channel> 
+                   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"> 
+                   <channel>
+                   <atom:link href="http://www.kartatopia.com/rss.xml" rel="self" type="application/rss+xml" /> 
                   <title>Kartatopia</title> 
                   <link>http://localhost/legacysite/</link> 
                   <description>Powering Online Shop</description> 
@@ -8,18 +9,18 @@
              <title>Giving to the community</title>
              <description>Giving opportunity to students who learn how to write a program or code. gjgbnb..</description>
              <link>http://localhost/legacysite/post/3/giving-to-the-community</link>
-             <guid>35a7d56374af89</guid>
+             <guid isPermaLink="false">35a7dbebe7f7d1</guid>
              <pubDate>Sun, 22 Oct 2017 00:00:00 +0700</pubDate>
              </item><item>
              <title>Volunteerism</title>
              <description>Volunteerism is they way you share..</description>
              <link>http://localhost/legacysite/post/2/volunteerism</link>
-             <guid>25a7d56374afe8</guid>
+             <guid isPermaLink="false">25a7dbebe7f866</guid>
              <pubDate>Sun, 22 Oct 2017 00:00:00 +0700</pubDate>
              </item><item>
              <title>Headlines 2</title>
              <description>testing post for slide headlines..</description>
              <link>http://localhost/legacysite/post/1/headlines-2</link>
-             <guid>15a7d56374b03c</guid>
+             <guid isPermaLink="false">15a7dbebe7f8c0</guid>
              <pubDate>Sun, 22 Oct 2017 00:00:00 +0700</pubDate>
              </item></channel></rss>
