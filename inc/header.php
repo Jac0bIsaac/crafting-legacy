@@ -18,7 +18,7 @@ function setHeader($match, $param = null)
  
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
   <head>
 
@@ -166,7 +166,7 @@ function blogHeader($match, $param = null)
    // get detail category
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
   <head>
 
@@ -225,7 +225,7 @@ function blogHeader($match, $param = null)
   <meta property="og:url"           content="<?php echo APP_DIR . 'post'.'/'.(int)$postId.'/'.$post_slug; ?>" />
   <meta property="og:type"          content="<?php echo $post_cats -> setLinkCategories($postId); ?>" />
   <meta property="og:title"         content="<?php echo $post_title; ?>" />
-  <meta property="og:description"   content="<?php echo html_entity_decode($description); ?>" />
+  <meta property="og:description"   content="<?php echo $description; ?>" />
   <meta property="og:image"         content="<?php echo APP_PICTURE . $post_image; ?>" />
   
   <?php 
