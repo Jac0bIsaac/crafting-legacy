@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: text/xml');
 require 'inc/config.php';
 
 $siteIdentities = $configurations ->findConfigs();
