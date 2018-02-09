@@ -136,7 +136,7 @@ function submitMessage()
  
  $name = $email = $phone = $msg = "";
  
- $form_fields = array("name"=>90, "email"=>180, "phone" => 20, "message"=>500);
+ $form_fields = array("name"=>90, "email"=>180, "phone" => 13, "message"=>500);
  
  try {
      
@@ -178,7 +178,9 @@ function submitMessage()
                  
                  if (valueSizeValidation($form_fields)) {}
                  
-                 $submit_message = $inbox -> sendMessage($name, $email, $phone, $msg, date("Ymd"), date("H:i:s"));
+                 $date_sent = date("Ymd");
+                 $time_sent = date("H:i:s");
+                 $submit_message = $inbox -> sendMessage($name, $email, $phone, $msg, $date_sent, $time_sent);
                  
                  if ($submit_message) {
                      
@@ -192,7 +194,7 @@ function submitMessage()
                      
                      $views['successMessage'] = "Your Message sent";
                      
-                     return $views['successMessage'];
+                     require 'contact.php';
                      
                  }
              }
