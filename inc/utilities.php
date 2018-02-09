@@ -513,8 +513,8 @@ function generateHash($quantityChar)
 // fungsi batas waktu
 function timeKeeper()
 {
-	$time_limit = 10440;
-	$_SESSION ['timeOut'] = time() + $time_limit;
+ $time_limit = 10440;
+ $_SESSION ['timeOut'] = time() + $time_limit;
 }
 
 // fungsi validasi batas waktu
@@ -526,9 +526,8 @@ function validateTimeLogIn()
 		timeKeeper();
 		return true;
 	} else {
-
-		unset( $_SESSION['timeOut'] );
-		return false;
+       unset( $_SESSION['timeOut'] );
+	   return false;
 	}
 }
 

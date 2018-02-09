@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+                   <rss version="2.0"> 
+                   <channel> 
+                  <title>Kartatopia</title> 
+                  <link>http://localhost/legacysite/</link> 
+                  <description>Feed Description</description> 
+                  <language>id</language><item>
+             <title>Giving to the community</title>
+             <description>&lt;p&gt;Giving opportunity to students who learn how to write a program or code. gjgbnb...</description>
+             <link>http://localhost/legacysite/post/3/giving-to-the-community</link>
+             <guid>35a7d1090c5125</guid>
+             <pubDate>Sun, 22 Oct 2017 00:00:00 +0700</pubDate>
+             </item><item>
+             <title>Volunteerism</title>
+             <description>&lt;p&gt;Volunteerism is they way you share...</description>
+             <link>http://localhost/legacysite/post/2/volunteerism</link>
+             <guid>25a7d1090c5198</guid>
+             <pubDate>Sun, 22 Oct 2017 00:00:00 +0700</pubDate>
+             </item><item>
+             <title>Headlines 2</title>
+             <description>&lt;p&gt;testing post for slide headlines...</description>
+             <link>http://localhost/legacysite/post/1/headlines-2</link>
+             <guid>15a7d1090c51f0</guid>
+             <pubDate>Sun, 22 Oct 2017 00:00:00 +0700</pubDate>
+             </item></channel></rss>

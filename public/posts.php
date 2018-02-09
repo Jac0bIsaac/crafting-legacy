@@ -27,13 +27,21 @@ $paragraph_article = substr($article, 0, 240);
 $paragraph_article = substr($article, 0, strrpos($paragraph_article, " "));
 ?>
             <h3 class="post-subtitle">
-            <?= html_entity_decode($paragraph_article); ?>       
+            <?php 
+            echo html_entity_decode($paragraph_article); 
+            ?>       
              </h3>
             </a>
             <p class="post-meta"><i class="fa fa-user"></i>
-              <a href="#"><?= htmlspecialchars($p['volunteer_login']); ?></a>
+              <a href="#"><?php echo htmlspecialchars($p['volunteer_login']); ?></a>
               <i class="fa fa-calendar"></i>
-             <?= makeDate($p['date_created'], 'id'); ?>
+             <?php 
+             echo makeDate($p['date_created'], 'id'); 
+             ?>
+             <i class="fa fa-folder"></i>
+             <?php 
+             echo $post_cats -> setLinkCategories($p['postID'], 'post-meta');
+             ?>
              </p>
           </div>
           <hr>

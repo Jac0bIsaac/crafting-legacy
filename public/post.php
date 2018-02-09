@@ -43,9 +43,10 @@ if ($post_id) :
            endforeach;
            ?>
           </nav>
+          <p></p>
            </div>
-        
-        <div class="col-lg-8 col-md-10 mx-auto">
+       
+      <div class="col-lg-8 col-md-10 mx-auto">
         <?php 
         if ($comment_status == 'open') :
         ?>
@@ -67,9 +68,10 @@ wpac_init.push({widget: 'Comment', id: 9470});
         <?php 
         endif;
         ?>
-        </div>
+        </div>  
         </div>
       </div>
+   
 </article>
 
 <hr>

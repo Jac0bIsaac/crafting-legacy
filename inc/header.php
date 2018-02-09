@@ -150,6 +150,10 @@ function blogHeader($match, $param = null)
       $date_published = isset($r['date_created']) ? makeDate($r['date_created'], 'id') : '';
       $author = isset($r['volunteer_login']) ? htmlspecialchars($r['volunteer_login']) : '';
       $post_slug = isset($r['post_slug']) ? htmlspecialchars($r['post_slug']) : '';
+     
+      $post_content = isset($r['post_content']) ? strip_tags($r['post_content']) : "";
+      $description = substr($post_content, 0, 220);
+      $description = substr($post_content, 0, strrpos($description, " "));
     
    } elseif (($match == 'category') && (!empty($param))) {
      
@@ -213,6 +217,20 @@ function blogHeader($match, $param = null)
     <!-- Custom styles for this template -->
     <link href="<?php echo APP_PUBLIC; ?>blog/css/clean-blog.min.css" rel="stylesheet">
     <link href="<?php echo APP_PUBLIC; ?>blog/css/pagination.css" rel="stylesheet">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feeds" href="<?php echo APP_DIR . 'rss.xml'; ?>" />
+    
+  <?php 
+  if (($match == 'post') && (!empty($param))) : 
+  ?>
+  <meta property="og:url"           content="<?php echo APP_DIR . 'post'.'/'.(int)$postId.'/'.$post_slug; ?>" />
+  <meta property="og:type"          content="<?php echo $post_cats -> setLinkCategories($postId); ?>" />
+  <meta property="og:title"         content="<?php echo $post_title; ?>" />
+  <meta property="og:description"   content="<?php echo html_entity_decode($description); ?>" />
+  <meta property="og:image"         content="<?php echo APP_PICTURE . $post_image; ?>" />
+  
+  <?php 
+  endif;
+  ?>
     
   </head>
 
@@ -289,6 +307,10 @@ function blogHeader($match, $param = null)
               <i class="fa fa-calendar"></i>
               <?php 
               echo $date_published; 
+              ?>
+              <i class="fa fa-folder"></i>
+              <?php 
+              echo $linkCategories = $post_cats -> setLinkCategories($postId, 'header');
               ?>
               </span>
             </div>

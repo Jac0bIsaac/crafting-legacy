@@ -95,3 +95,4 @@ $widgets = new Widget();
 $dispatching = new Dispatcher();
 $frontContent = new FrontContent();
 $frontPaginator = new Paginator(12, 'p');
+$postFeeds = new RssFeed($dbc);

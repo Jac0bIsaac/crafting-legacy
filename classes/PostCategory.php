@@ -41,7 +41,7 @@ class PostCategory extends Model
     
   }
   
-  public function setLinkCategories($postId)
+  public function setLinkCategories($postId, $position = 'meta')
   {
     
     $html = array();
@@ -50,8 +50,15 @@ class PostCategory extends Model
    
     foreach ($linkCategories as $l => $linkCategory) {
        
-        $html[] = '<a href="'.APP_DIR.'category/'.preventInject($linkCategory['category_slug']).'" class="tag-name">'.preventInject($linkCategory['category_title']).'</a>';
-       
+        if (!$position) {
+        
+            $html[] = '<a href="'.APP_DIR.'category/'.preventInject($linkCategory['category_slug']).'" class="tag-name">'.preventInject($linkCategory['category_title']).'</a>';
+        
+        } else {
+            
+            $html[] = preventInject($linkCategory['category_title']);
+            
+        }
     }
    
     return implode(", ", $html);
