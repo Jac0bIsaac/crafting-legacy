@@ -151,7 +151,7 @@ function blogHeader($match, $param = null)
       $author = isset($r['volunteer_login']) ? htmlspecialchars($r['volunteer_login']) : '';
       $post_slug = isset($r['post_slug']) ? htmlspecialchars($r['post_slug']) : '';
      
-      $post_content = isset($r['post_content']) ? strip_tags($r['post_content']) : "";
+      $post_content = isset($r['post_content']) ? html_entity_decode(strip_tags($r['post_content'])) : "";
       $description = substr($post_content, 0, 220);
       $description = substr($post_content, 0, strrpos($description, " "));
     
