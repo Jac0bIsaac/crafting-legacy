@@ -4,7 +4,7 @@ class Event extends Model
 {
   
   protected $linkEvents;
-  
+    
   public function __construct()
   {
   	parent::__construct();
@@ -186,7 +186,7 @@ class Event extends Model
             FROM 
                event AS e
              INNER JOIN volunteer AS v ON e.sender_id = v.ID
-             ORDER BY e.event_id DESC " . $this->linkEvents->get_limit();
+             ORDER BY e.event_id DESC " . $this->filteringId($sanitize, $this->linkEvents->get_limit(), 'sql');
      
      $stmt = $this->dbc->query($sql);
      
