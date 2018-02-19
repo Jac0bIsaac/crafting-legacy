@@ -1,13 +1,5 @@
 <?php
 
-if (!isset($_SESSION)) {
-    
-    session_start();
-    
-}
-
-ob_start();
-
 spl_autoload_register(null, false);
 
 // spesifikasi file php yang akan diload
@@ -96,3 +88,11 @@ $dispatching = new Dispatcher();
 $frontContent = new FrontContent();
 $frontPaginator = new Paginator(12, 'p');
 $postFeeds = new RssFeed($dbc);
+
+if (!isset($_SESSION)) {
+    
+    session_start();
+    
+}
+
+ob_start();

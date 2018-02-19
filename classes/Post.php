@@ -169,7 +169,7 @@ public function updatePost($id, $catID, $author, $modified, $title, $slug,
   			 
   			}
   			
-  			$numbers = "SELECT postID FROM posts";
+  			$numbers = "SELECT postID FROM posts WHERE post_type = 'blog'";
   			$stmt = $this->dbc->query($numbers);
   			$totalPosts = $stmt -> rowCount();
   			

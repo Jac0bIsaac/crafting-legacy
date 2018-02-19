@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Jakarta');
-ini_set('memory_limit', '64M');
+ini_set('memory_limit', '16M');
 
 define('DS', DIRECTORY_SEPARATOR);
 

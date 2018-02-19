@@ -38,8 +38,8 @@ if (isset($messages)) {
   $content = substr($data_content, 0, strrpos($content, " "));
   
 ?>     <li>
-       <a href="?module=inbox&action=replyMessage&messageId=<?= (int)$message['inboxID']; ?>">                
-           <strong><?= htmlspecialchars($message['sender']); ?></strong>
+       <a href="?module=inbox&action=replyMessage&messageId=<?= (int)$message['ID']; ?>">                
+           <strong><?php echo htmlspecialchars($message['sender']); ?></strong>
 <div>
 <span class="pull-right text-muted">
  <em><?= timeAgo($message['time_sent']); ?></em>

@@ -45,8 +45,16 @@ class Paginator
 	 */
 	private $_totalRows = 0;
 	
+	/**
+	 * Errors
+	 * @var string
+	 */
 	private $_errors;
 	
+	/**
+	 * sanitize
+	 * @var string
+	 */
 	private $_sanitize;
 
 	/**
@@ -90,7 +98,7 @@ class Paginator
 	private function set_instance()
 	{
 	  $requestInstance = filter_input(INPUT_GET, $this->_instance, FILTER_SANITIZE_NUMBER_INT); 
-	  $this->_page = (int) (!isset($requestInstance) ? 1 : $requestInstance);
+	  $this->_page = (int)(!isset($requestInstance) ? 1 : $requestInstance);
 	  $this->_page = ($this->_page == 0 ? 1 : $this->_page);
 	    
 	}
@@ -113,9 +121,11 @@ class Paginator
 	 *
 	 * @return string
 	 */
-	public function get_limit()
+	public function get_limit(Sanitize $sanitize)
 	{
-	  return "LIMIT ".$this->get_start().",$this->_perPage";
+	  $this->_sanitize = $sanitize;
+	  $position = $this->_sanitize->sanitasi((int)$this->get_start(), 'sql');
+	  return "LIMIT ".$position.",$this->_perPage";
 	}
 
 	/**

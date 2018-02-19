@@ -26,7 +26,7 @@ class Inbox extends Model
   public function readMessage($id, $sanitizing)
   {
   	$sql = "SELECT ID, sender, email, phone, messages, date_sent, time_sent
-  			FROM inbox WHERE inboxID = ?";
+  			FROM inbox WHERE ID = ?";
   	
   	$cleanId = $this->filteringId($sanitizing, $id, 'sql');
   	
@@ -70,7 +70,7 @@ class Inbox extends Model
       $msg = array();
         
       $sql = "SELECT ID, sender, email, phone, messages, date_sent, time_sent
-    		  FROM inbox ORDER BY sender DESC LIMIT :position, :limit";
+    		  FROM inbox ORDER BY date_sent DESC LIMIT :position, :limit";
         
       $stmt = $this->dbc->prepare($sql);
       $stmt -> bindParam(":position", $position, PDO::PARAM_INT);
@@ -102,7 +102,7 @@ class Inbox extends Model
   
   public function checkMessageId($id, $sanitizing)
   {
-  	$sql = "SELECT ID FROM inbox WHERE inboxID = ?";
+  	$sql = "SELECT ID FROM inbox WHERE ID = ?";
   	
   	$stmt = $this->dbc->prepare($sql);
   	
