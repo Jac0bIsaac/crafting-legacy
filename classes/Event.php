@@ -186,7 +186,7 @@ class Event extends Model
             FROM 
                event AS e
              INNER JOIN volunteer AS v ON e.sender_id = v.ID
-             ORDER BY e.event_id DESC " . $this->filteringId($sanitize, $this->linkEvents->get_limit(), 'sql');
+             ORDER BY e.event_id DESC " . $this->linkEvents->get_limit($sanitize);
      
      $stmt = $this->dbc->query($sql);
      

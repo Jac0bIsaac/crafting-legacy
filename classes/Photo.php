@@ -119,7 +119,7 @@ class Photo extends Model
                  p.photo_filename, a.album_title, a.album_slug
                FROM photo AS p
                INNER JOIN album AS a ON p.album_id = a.albumID
-               ORDER BY a.album_slug DESC " . $this->linkPhotos->get_limit();
+               ORDER BY a.album_slug DESC " . $this->linkPhotos->get_limit($sanitize);
      
        $stmt = $this->dbc->query($sql);
        

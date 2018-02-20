@@ -293,7 +293,7 @@ public function updatePost($id, $catID, $author, $modified, $title, $slug,
   			      FROM posts AS p
   			      INNER JOIN volunteer AS v ON p.post_author = v.ID
   			      WHERE p.post_type = 'blog' AND p.post_status = 'publish'
-  			      ORDER BY p.postID DESC " . $this->linkPosts->get_limit();
+  			      ORDER BY p.postID DESC " . $this->linkPosts->get_limit($sanitize);
   	      
   	     $stmt = $this->dbc->query($sql);
   	      
