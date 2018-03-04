@@ -13,9 +13,18 @@ class Inbox extends Model
   public function sendMessage($sender, $email, $phone, $messages, $date_sent, $time_sent)
   {
    $sql = "INSERT INTO inbox(sender, email, phone, messages, date_sent, time_sent)
-   		   VALUES(?, ?, ?, ?, ?, ?)";
+   		   VALUES(:sender, :email, :phone, :messages, :date_sent, :time_sent)";
    
-   $data = array($sender, $email, $phone, $messages, $date_sent, $time_sent);
+   $data = array(
+       
+       ":sender" => $sender, 
+       ":email" => $email, 
+       ":phone" => $phone, 
+       ":messages" => $messages, 
+       ":date_sent" => $date_sent, 
+       ":time_sent" => $time_sent
+       
+   );
    
    $stmt = $this->statementHandle($sql, $data);
    

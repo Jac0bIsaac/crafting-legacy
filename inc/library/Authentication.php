@@ -119,8 +119,13 @@ class Authentication
  	 $_SESSION['Token'] = $dataVolunteer['volunteer_session'];
  	 $_SESSION['agent'] = sha1($_SERVER['HTTP_USER_AGENT']);
  	 
- 	 header('Location:' . APP_CONTROL_PANEL. DS .'index.php?module=dashboard');
- 		
+ 	 $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === false ? 'http' : 'https';
+ 	 $host     = $_SERVER['HTTP_HOST'];
+ 	 
+ 	 $logInPage = $protocol . '://' . $host . dirname($_SERVER['PHP_SELF']) . '/index.php?module=dashboard';
+ 	 
+ 	 header('Location:' . $logInPage);
+ 	 
  	}
  	
  }

@@ -145,7 +145,7 @@ function submitMessage()
          $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
          $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
          $phone = isset($_POST['phone']) ? str_replace(array(' ', '-', '(', ')'), '', $_POST['phone']) : "";
-         $msg = preventInject($_POST['message']);
+         $msg = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
          
          $badCSRF = true; // check CSRF
          
@@ -171,6 +171,10 @@ function submitMessage()
                  
                  throw new InboxException("Please enter a your valid name");
                  
+             } elseif (preg_match("/\b(?:(?:https?|ftp|http):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $msg)) {
+                 
+                 throw new InboxException("Error, please remove URLs");
+                 
              } else {
                  
                  $badCSRF = false;
@@ -180,12 +184,12 @@ function submitMessage()
                  
                  $date_sent = date("Ymd");
                  $time_sent = date("H:i:s");
-                 $submit_message = $inbox -> sendMessage($name, $email, $phone, $msg, $date_sent, $time_sent);
+                 $submit_message = $inbox -> sendMessage($name, $email, $phone, preventInject($msg), $date_sent, $time_sent);
                  
                  if ($submit_message) {
                      
                      // Create the email and send the message
-                     $to = 'hello@kartatopia.com'; // Add your email address inbetween the '' replacing yourname@yourdomain.com - This is where the form will send a message to.
+                     $to = safeEmail('hello@kartatopia.com'); // Add your email address inbetween the '' replacing yourname@yourdomain.com - This is where the form will send a message to.
                      $email_subject = "You get contact form message from:  $name";
                      $email_body = "You have received a new message from your website contact form.\n\n"."Here are the details:\n\nName: $name\n\nEmail:".safeEmail($email)."\n\nPhone: $phone\n\nMessage:\n$msg";
                      $headers = "From: noreply@kartatopia.com\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.

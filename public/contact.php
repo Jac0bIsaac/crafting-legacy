@@ -68,8 +68,9 @@ $successMessage = (isset($views['successMessage'])) ? $views['successMessage'] :
               <div class="form-group">
                 <?php 
                    // create token for prevent CSRF
-                   $key= 'ABCDE1FGHI06JKLMNOPQRST88UVWXYZ1234567890!@#$%^&*()~`+-_|{}';
-                   $CSRF = sha1(mt_rand(1,1000000) . $key);
+                   // prevent CSRF
+                   $key= '1Af/MdfyPFO42PB+xK9C+iquu6ZU6QOVDpQfQ4oWU9Q=';
+                   $CSRF = bin2hex(openssl_random_pseudo_bytes(32).$key);
                    $_SESSION['CSRF'] = $CSRF;
                  ?>
                 <input type="hidden" name="csrf" value="<?= $CSRF; ?>"/>

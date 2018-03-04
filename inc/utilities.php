@@ -1037,7 +1037,7 @@ function valueSizeValidation($form_fields)
         
     if(!empty($_POST[$k]) && isset($_POST[$k]{$v + 1})) {
             
-        triger_error("{$k} </b> is longer then allowed {$v} byte length");
+        die("{$k} </b> is longer then allowed {$v} byte length");
         
      }
     

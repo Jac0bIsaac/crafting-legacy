@@ -3,7 +3,7 @@
 spl_autoload_register(null, false);
 
 // spesifikasi file php yang akan diload
-spl_autoload_extensions(".php");
+spl_autoload_extensions('.php');
 
 if (!function_exists('autoloader')) {
     
@@ -86,12 +86,12 @@ $dashboards = new Dashboard();
 $widgets = new Widget();
 $dispatching = new Dispatcher();
 $frontContent = new FrontContent();
-$frontPaginator = new Paginator(12, 'p');
+$frontPaginator = new Paginator(1, 'p');
 $postFeeds = new RssFeed($dbc);
 
 if (!isset($_SESSION)) {
     
-    session_start();
+  session_start();
     
 }
 

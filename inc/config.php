@@ -5,10 +5,10 @@ ini_set('memory_limit', '16M');
 define('DS', DIRECTORY_SEPARATOR);
 
 //database credentials
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', 'kartatopia');
-define('DB_NAME', 'kartatopia');
+define('DB_HOST', '');
+define('DB_USER', '');
+define('DB_PASS', '');
+define('DB_NAME', '');
 
 // Site configuration
 define('APP_DIR', "http://localhost/legacysite" . DS);  // define site path

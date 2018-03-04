@@ -59,7 +59,7 @@ class Dashboard extends Model
  public function messageNotifications()
  {
     $sql = "SELECT ID, sender, email, messages, date_sent, time_sent
-           FROM inbox ORDER BY time_sent DESC LIMIT 5";
+           FROM inbox ORDER BY date_sent DESC LIMIT 5";
     
     $stmt = $this->dbc->query($sql);
     

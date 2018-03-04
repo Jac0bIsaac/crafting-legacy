@@ -52,7 +52,9 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_status` varchar(20) NOT NULL DEFAULT 'publish',
   `post_type` varchar(120) NOT NULL DEFAULT 'blog',
   `comment_status` varchar(20) NOT NULL DEFAULT 'open',
-  PRIMARY KEY (postID)
+  PRIMARY KEY (`postID`),
+  FULLTEXT KEY `post_title` (`post_title`),
+  FULLTEXT KEY `post_title_2` (`post_title`,`post_content`)
 ) Engine=InnoDB;
 
 DROP TABLE IF EXISTS category;

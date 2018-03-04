@@ -12,7 +12,7 @@ require('sidebarNavigation.php');
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-<a class="navbar-brand" href="http://www.kartatopia.com/" 
+<a class="navbar-brand" href="<?php echo APP_DIR; ?>" 
 title="Powering online shop">Kartatopia</a>
 	</div>
 	<!-- /.navbar-header -->
@@ -38,7 +38,7 @@ if (isset($messages)) {
   $content = substr($data_content, 0, strrpos($content, " "));
   
 ?>     <li>
-       <a href="?module=inbox&action=replyMessage&messageId=<?= (int)$message['ID']; ?>">                
+       <a href="?module=messages&action=replyMessage&messageId=<?= (int)$message['ID']; ?>">                
            <strong><?php echo htmlspecialchars($message['sender']); ?></strong>
 <div>
 <span class="pull-right text-muted">
