@@ -1,5 +1,5 @@
 <?php 
-include('../inc/config.php');
+include(dirname(dirname(__FILE__)) .'/inc/config.php');
 include('login-theme.php');
 
 $pageTitle = "Reset Password";
@@ -53,20 +53,20 @@ if (isset($_POST['reset']) && $_POST['reset'] == 'reset_pass') {
  	 $message = "<html><body>
                 If you have never requested an information message about forgotten passwords, please feel free to ignore this email.<br />
                 But If you are indeed asking for this information, then please click on the link below: <br /><br />
-               <a href=".APP_CONTROL_PANEL."recoverPassword.php?tempToken=$tempToken >Recover Password</a><br /><br />
+               <a href=".APP_CONTROL_PANEL."/recoverPassword.php?tempToken=$tempToken >Recover Password</a><br /><br />
                Thank You, <br />
-               <b>Volunteer South Carolina Exchange Student</b>
+               <b>Kartatopia Studio</b>
                </body></html>";
  	 
  	 $headers  = "MIME-Version: 1.0" . "\r\n";
- 	 $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+ 	 $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
  	 $headers .= "From: <".APP_SITEEMAIL.">\r\n";
  	 $headers .= "Reply-To: ".APP_SITEEMAIL."";
  	 
  	 mail($to, $subject, $message, $headers);
  	 
  	 // redirect to reset password's page
- 	 header("Location:".APP_CONTROL_PANEL."resetPassword.php?status=reset");
+ 	 header("Location:".APP_CONTROL_PANEL."/resetPassword.php?status=reset");
  	 
  	}
  	

@@ -32,7 +32,7 @@ foreach ($categoryPost as $catPost => $c) :
               </h2>
 <?php 
 $article = strip_tags($c['post_content']);
-$paragraph_article = substr($article, 0, 240);
+$paragraph_article = substr($article, 0, 480);
 $paragraph_article = substr($article, 0, strrpos($paragraph_article, " "));
 ?>
             <h3 class="post-subtitle">
@@ -44,7 +44,6 @@ $paragraph_article = substr($article, 0, strrpos($paragraph_article, " "));
               <i class="fa fa-calendar"></i>
              <?= makeDate($c['date_created'], 'id'); ?>
              <i class="fa fa-folder"></i>
-             category:
              <?= $linkPostCat = $post_cats ->setLinkCategories($c['postID']); ?>
              </p>
           </div>

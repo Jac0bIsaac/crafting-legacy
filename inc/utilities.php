@@ -513,7 +513,7 @@ function generateHash($quantityChar)
 // fungsi batas waktu
 function timeKeeper()
 {
- $time_limit = 10440;
+ $time_limit = 18440;
  $_SESSION ['timeOut'] = time() + $time_limit;
 }
 

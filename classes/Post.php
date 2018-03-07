@@ -56,29 +56,29 @@ public function createPost($catID, $author, $created, $title, $slug, $content, $
   		
 }
   	
-public function updatePost($id, $catID, $author, $modified, $title, $slug, 
+public function updatePost($id, $catID, $modified, $title, $slug, 
                         $content, $post_status, $comment_status, $picture = '') 
 {
   	  
  if (!empty($picture)) {
   	  	
-  	 $sql = "UPDATE posts SET post_image = ?, post_author = ?, 
+  	 $sql = "UPDATE posts SET post_image = ?, 
   	  			date_modified = ?, post_title = ?, post_slug = ?,
   	  			post_content = ?, post_status = ?, comment_status = ? 
                 WHERE postID = ?";
   	  	
   	  
-  	 $data = array($picture, $author, $modified, $title, $slug, 
+  	 $data = array($picture, $modified, $title, $slug, 
   	  			 $content, $post_status, $comment_status, $id);
   	  	
   } else {
   	  	
-  	  	$sql = "UPDATE posts SET post_author = ?,
-  	  			date_modified = ?, post_title = ?, post_slug = ?,
+  	  	$sql = "UPDATE posts SET date_modified = ?, 
+                post_title = ?, post_slug = ?,
   	  			post_content = ?, post_status = ?, comment_status = ? 
   	  			WHERE postID = ?";
   	  	
-  	  	$data = array($author, $modified, $title, $slug, $content, 
+  	  	$data = array( $modified, $title, $slug, $content, 
   	  			$post_status, $comment_status, $id);
   	  	
   }
@@ -169,7 +169,16 @@ public function updatePost($id, $catID, $author, $modified, $title, $slug,
   			 
   			}
   			
-  			$numbers = "SELECT postID FROM posts WHERE post_type = 'blog'";
+  			if (!empty($author)) {
+  			
+  			    $numbers = "SELECT postID FROM posts WHERE post_author = '$author'
+                           AND post_type = 'blog'";
+  			    
+  			} else {
+  			    
+  			    $numbers = "SELECT postID FROM posts WHERE post_type = 'blog'";
+  			}
+  			
   			$stmt = $this->dbc->query($numbers);
   			$totalPosts = $stmt -> rowCount();
   			
@@ -198,10 +207,10 @@ public function updatePost($id, $catID, $author, $modified, $title, $slug,
   	  		  post_slug, post_content, post_status,
   	  		  post_type, comment_status
   	  		  FROM posts 
-  	  		  WHERE postID = ? AND post_author = ?
+  	  		  WHERE postID = :postID AND post_author = :author
   			  AND post_type = 'blog'";
   	 	
-  	 	$data = array($sanitized_id, $author);
+  	 	$data = array(":postID" => $sanitized_id, ":author" => $author);
   	 	
   	 } else {
   	 	
@@ -210,9 +219,9 @@ public function updatePost($id, $catID, $author, $modified, $title, $slug,
   	  		  post_slug, post_content, post_status,
   	  		  post_type, comment_status
   	  		  FROM posts 
-  	  		  WHERE postID = ? AND post_type = 'blog'";
+  	  		  WHERE postID = :postID AND post_type = 'blog'";
   	 	
-  	 	$data = array($sanitized_id);
+  	 	$data = array(":postID" => $sanitized_id);
   	 	
   	 }
   	  

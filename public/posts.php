@@ -23,7 +23,7 @@ else :
               </h2>
 <?php 
 $article = strip_tags($p['post_content']);
-$paragraph_article = substr($article, 0, 240);
+$paragraph_article = substr($article, 0, 480);
 $paragraph_article = substr($article, 0, strrpos($paragraph_article, " "));
 ?>
             <h3 class="post-subtitle">

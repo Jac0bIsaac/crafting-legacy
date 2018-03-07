@@ -1,6 +1,6 @@
 <?php
 
-include('../inc/config.php');
+include(dirname(dirname(__FILE__)) .'/inc/config.php');
 
 $pageTitle = "Change password";
 

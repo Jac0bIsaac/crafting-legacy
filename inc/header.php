@@ -117,6 +117,7 @@ endif;
 function blogHeader($match, $param = null)
 {
     global $configurations, $posts, $post_cats, $categories, $widgets, $frontContent, $frontPaginator, $sanitize;
+    global $imageGraphProtocol, $ogp;
     
     $views = array();
     
@@ -151,9 +152,21 @@ function blogHeader($match, $param = null)
       $author = isset($r['volunteer_login']) ? htmlspecialchars($r['volunteer_login']) : '';
       $post_slug = isset($r['post_slug']) ? htmlspecialchars($r['post_slug']) : '';
      
-      $post_content = isset($r['post_content']) ? html_entity_decode(strip_tags($r['post_content'])) : "";
-      $description = substr($post_content, 0, 220);
+      $post_content = strip_tags($r['post_content']);
+      $description = substr($post_content, 0, 280);
       $description = substr($post_content, 0, strrpos($description, " "));
+      
+      // Core Open Graph Protocol
+      $imageGraphProtocol -> setSecureURL(APP_PICTURE . $post_image);
+      $imageGraphProtocol -> setType('image/jpeg');
+      
+      $ogp -> setLocale('id_ID');
+      $ogp -> setSiteName($meta_title);
+      $ogp -> setTitle($post_title);
+      $ogp -> setDescription(html_entity_decode($description));
+      $ogp -> setType('website');
+      $ogp -> setURL(APP_DIR . 'post' . '/'. $postId . '/' . $post_slug);
+      $ogp -> addImage($imageGraphProtocol);
     
    } elseif (($match == 'category') && (!empty($param))) {
      
@@ -172,11 +185,16 @@ function blogHeader($match, $param = null)
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
     <?php 
     if (($match == 'post') && (!empty($param))):
     ?> 
-    <meta name="description" content="<?php echo $match . " | " . $post_title; ?>">
-    <meta name="keywords" content="<?php echo $post_title; ?>">
+    <meta name="description" content="<?php echo $match . " | " . $post_title; ?>"/>
+    <meta name="keywords" content="<?php echo $post_title; ?>" />
+    
+    <?php 
+      echo $ogp -> toHTML();
+    ?>
     <?php 
     elseif (($match == 'category') && (!empty($param))) :
     ?>
@@ -219,18 +237,7 @@ function blogHeader($match, $param = null)
     <link href="<?php echo APP_PUBLIC; ?>blog/css/pagination.css" rel="stylesheet">
     <link rel="alternate" type="application/rss+xml" title="RSS Feeds" href="<?php echo APP_DIR . 'rss.xml'; ?>" />
     
-  <?php 
-  if (($match == 'post') && (!empty($param))) : 
-  ?>
-  <meta property="og:url"           content="<?php echo APP_DIR . 'post'.'/'.(int)$postId.'/'.$post_slug; ?>" />
-  <meta property="og:type"          content="<?php echo $post_cats -> setLinkCategories($postId); ?>" />
-  <meta property="og:title"         content="<?php echo $post_title; ?>" />
-  <meta property="og:description"   content="<?php echo $description; ?>" />
-  <meta property="og:image"         content="<?php echo APP_PICTURE . $post_image; ?>" />
   
-  <?php 
-  endif;
-  ?>
     
   </head>
 

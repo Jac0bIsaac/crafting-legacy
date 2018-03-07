@@ -13,7 +13,7 @@ class Widget extends Model
   
   $nextQuery = "SELECT postID, post_title, post_slug, post_type
                 FROM posts WHERE postID > '$id_sanitized' 
-                AND post_type = 'blog' 
+                AND post_status = 'publish' AND post_type = 'blog' 
                 ORDER BY postID LIMIT 1";
   
   $stmt = $this->dbc->query($nextQuery);
@@ -37,7 +37,7 @@ class Widget extends Model
      
    $prevQuery = "SELECT postID, post_title, post_slug, post_type 
                  FROM posts WHERE postID < '$id_sanitized' 
-                 AND post_type = 'blog' 
+                 AND post_status = 'publish' AND post_type = 'blog'
                  ORDER BY postID LIMIT 1";
      
    $stmt = $this->dbc-> query($prevQuery);

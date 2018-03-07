@@ -1,6 +1,6 @@
 <?php
 
-include_once('../inc/config.php');
+include(dirname(dirname(__FILE__)) .'/inc/config.php');
 
 include_once('login-theme.php');
 
@@ -8,7 +8,7 @@ $loginFormSubmitted = isset($_POST['Log-In']);
 
 if (empty($loginFormSubmitted) == false) {
 
- $email = isset($_POST['email']) ? preventInject($_POST['email']) : "";
+ $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
  $passWord = isset($_POST['password']) ? preventInject($_POST['password']) : "";
  
  $badCSRF = true; // check CSRF
@@ -29,10 +29,6 @@ if (empty($loginFormSubmitted) == false) {
  } elseif (is_valid_email_address($email) == 0) {
  	
  	$errors['errorMessage'] = "Please enter a valid email address";
- 
- } elseif (!ctype_alnum($passWord)) {
- 	
- 	$errors['errorMessage'] = "Please enter a valid password";
  
  } elseif ($authentication -> isEmailExists($email) == false) { 
  	

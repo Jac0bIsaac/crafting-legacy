@@ -67,6 +67,7 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
           if ($totalPosts > 0) :
           
             foreach ($views['posts'] as $post) :
+              if ($post['post_status'] == 'publish') :
           ?>
              <div class="card text-white bg-info mb-3">
              <div class="card-header ">
@@ -83,7 +84,7 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
                </h5>
                <?php 
                $article = strip_tags($post['post_content']);
-               $article_content = substr($article, 0, 200);
+               $article_content = substr($article, 0, 480);
                $article_content = substr($article, 0, strrpos($article_content, " "));
                ?>
                <p class="card-text"><?php echo html_entity_decode($article_content); ?></p>
@@ -93,6 +94,7 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
              </div>
            </div>
            <?php 
+            endif;
            endforeach; 
            endif; 
            ?>

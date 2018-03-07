@@ -11,14 +11,14 @@ define('DB_PASS', '');
 define('DB_NAME', '');
 
 // Site configuration
-define('APP_DIR', "http://localhost/legacysite" . DS);  // define site path
+define('APP_DIR', "http://" . DS);  // define site path
 define('APP_PUBLIC',  APP_DIR . 'public' . DS); 
 define('APP_SITEEMAIL', 'alanmoehammad@gmail.com');
 define('APP_SITEKEY', 'd0d48739c3b82db413b3be8fbc5d7ea1c1fd3e2792605d3cbfda1HEM78!!');
 define('APP_INC', 'inc');
 define('APP_CLASS', 'classes');
 define('APP_CONTROL_PANEL', APP_DIR . 'cabin');
-define('APP_LIBRARY', APP_INC  . DS . 'library' . DS);
+define('APP_LIBRARY', APP_INC  . DS . 'library');
 define('APP_FILES', APP_DIR . 'files' . DS);
 define('APP_PICTURE', APP_FILES . 'picture' . DS . 'photo' . DS);
 define('SITEPAGE_DEFAULT_LASTMODIFIED_VALUE' , -1 ) ;

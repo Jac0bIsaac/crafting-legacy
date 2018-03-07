@@ -50,7 +50,7 @@ if ($accessLevel != 'Administrator' && $accessLevel != 'WebMaster'
 
 function listPosts()
 {
- global $posts;
+ global $posts, $accessLevel, $vid;
  
  $views = array();
  $views['pageTitle'] = "Posts";
@@ -59,7 +59,16 @@ function listPosts()
  $limit = 10;
  $position = $p -> getPosition($limit);
  
- $data_posts = $posts -> findPosts($position, $limit);
+ if ($accessLevel != 'WebMaster' && $accessLevel != 'Administrator') {
+   
+   $data_posts = $posts -> findPosts($position, $limit, $vid);
+   
+ } else {
+     
+   $data_posts = $posts -> findPosts($position, $limit);
+   
+ }
+ 
  $views['posts'] = $data_posts['results'];
  $views['totalPosts'] = $data_posts['totalPosts'];
  $views['position'] = $position;
@@ -237,7 +246,7 @@ function addPost()
 
 function editPost()
 {
- global $posts, $categories, $postId, $sanitize, $vid;
+ global $posts, $categories, $postId, $sanitize;
     
  $views = array();
  $views['pageTitle'] = "Edit post";
@@ -278,8 +287,8 @@ function editPost()
  	    if (empty($file_location) || empty($file_basename)) {
  	        
  	       $edit_post = $posts -> updatePost($post_id, $_POST['catID'], 
- 	           $vid, $tgl_sekarang, $title, 
- 	           $slug, $content, $post_setting, $comment_setting);
+ 	           $tgl_sekarang, $title, $slug, $content, 
+ 	           $post_setting, $comment_setting);
  	        
  	      echo '<META HTTP-EQUIV="Refresh" Content="0; URL=index.php?module=posts&status=postUpdated">';
  	        
@@ -325,7 +334,7 @@ function editPost()
  	        uploadPhoto($newFileName);
  	        
  	        $edit_post = $posts -> updatePost($post_id, $_POST['catID'],
- 	            $vid, $tgl_sekarang, $title, $slug, 
+ 	            $tgl_sekarang, $title, $slug, 
  	            $content, $post_setting, $comment_setting,  $newFileName);
  	        
  	        echo '<META HTTP-EQUIV="Refresh" Content="0; URL=index.php?module=posts&status=postUpdated">';
