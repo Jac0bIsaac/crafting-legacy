@@ -1,5 +1,7 @@
 <?php 
 $start = microtime(true);
+echo "\n Memory Consumption is   ";
+echo round(memory_get_usage()/1048576,2).''.' MB';
 require 'inc/config.php';
 
 $findParam = $dispatching-> findRequestParam(); // finding request URI
@@ -95,3 +97,5 @@ if ($action == 'posts' || $action == 'post' || $action == 'category') {
 ob_end_flush();
 
 echo ' '.(microtime(true)-$start);
+echo "\n Memory Consumption is   ";
+echo round(memory_get_usage()/1048576,2).''.' MB';
