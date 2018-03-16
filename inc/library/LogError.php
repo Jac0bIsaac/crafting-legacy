@@ -84,7 +84,7 @@ class LogError
 		  case E_USER_ERROR:
 		        
 		       $errorMessage = "<b>ERROR: </b> [$errorNumber] - $errorString<br />\n";
-		       $errorMessage .= " Fatal error on line $line in file $file";
+		       $errorMessage .= " Fatal error on line $line in file $file<br />\n";
 		       $errorMessage .= " PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
 		       
 		       self::errorMessage($errorMessage);
@@ -98,6 +98,8 @@ class LogError
 		   case E_USER_WARNING :
 		        
 		       $errorMessage = "<b>WARNING: </b> [$errorNumber] - $errorString<br />\n";
+		       $errorMessage .= " Warning on line $line in file $file<br />\n";
+		       $errorMessage .= " PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
 		       
 		         self::errorMessage($errorMessage);
 		         self::customErrorMessage();
@@ -107,17 +109,20 @@ class LogError
 		   case E_NOTICE:
 		   case E_USER_NOTICE :
 		        
-		      $errorMessage = "<b>NOTICE: </b> [$errorNumber] - $errorString";
+		      $errorMessage = "<b>NOTICE: </b> [$errorNumber] - $errorString<br />\n";
+		      $errorMessage .= " Notice on line $line in file $file<br />\n";
+		      $errorMessage .= " PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
 		        
-		       self::errorMessage($errorMessage);
-		       self::customErrorMessage();
+		      self::errorMessage($errorMessage);
+		      self::customErrorMessage();
 		       
-		       break;
+		      break;
 		       
 		   default:
 		        
 		        $errorMessage =  "Unknown error type: [$errorNumber] - $errorString<br />\n";
-		        
+		        $errorMessage .= " Unknown error on line $line in file $file<br />\n";
+		        $errorMessage .= " PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
 		        self::errorMessage($errorMessage);
 		        self::customErrorMessage();
 		        
@@ -188,7 +193,7 @@ class LogError
 	{
 	    
 	    $date = date('M d, Y G:iA');
-	    $log_message = "<p>Error on $date - $error</p>";
+	    $log_message = "<p>Error on $date <br/>$error</p>";
 	    
 	    if( is_file($error_file) === false ) {
 	        file_put_contents($error_file, '');

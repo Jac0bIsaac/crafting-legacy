@@ -41,23 +41,7 @@ if (version_compare(PHP_VERSION, '5.4', '>=')) {
         
     }
     
-} else {
-    
-    function __autoload($class)
-    {
-        if (is_readable(APP_SYSPATH . APP_LIBRARY . DS . $class.'.php')) {
-            
-            require(APP_SYSPATH . APP_LIBRARY . DS . $class . '.php');
-            
-        } elseif (is_readable(APP_SYSPATH . APP_CLASS . DS . $class . '.php')) {
-            
-            require(APP_SYSPATH . APP_CLASS . DS . $class . '.php');
-            
-        }
-        
-    }
-    
-}
+} 
 
 $dbc = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
 $dbc -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -89,15 +73,18 @@ $frontContent = new FrontContent();
 $frontPaginator = new Paginator(6, 'p');
 $postFeeds = new RssFeed($dbc);
 
+if ( !startSessionOnSite() ) {
+    session_id( uniqid() );
+    session_start();
+    session_regenerate_id();
+}
+
+@ob_start();
+
 require(APP_SYSPATH . APP_LIBRARY . DS . 'open-graph-protocol.php');
 
 $imageGraphProtocol = new OpenGraphProtocolImage();
 $ogp = new OpenGraphProtocol();
 
-if (!isset($_SESSION)) {
-    
-  session_start();
-    
-}
-
-ob_start();
+set_exception_handler('LogError::exceptionHandler');
+set_error_handler('LogError::errorHandler');

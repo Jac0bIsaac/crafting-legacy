@@ -109,7 +109,7 @@ $_CONFIG = array(
 		// THE FOLLOWING SETTINGS CANNOT BE OVERRIDED WITH SESSION SETTINGS
 
 		'_normalizeFilenames' => false,
-		'_check4htaccess' => true,
+		'_check4htaccess' => false,
 		'_tinyMCEPath' => "../wysiwyg/tiny_mce",
 
 		'_sessionVar' => 'KCFINDER',
@@ -122,5 +122,3 @@ $_CONFIG = array(
 		//'_jsMinCmd' => "java -jar /path/to/yuicompressor.jar --type js {file}",
 
 );
-
-?>

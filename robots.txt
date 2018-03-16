@@ -19,4 +19,4 @@ Disallow: /
 User-agent: Googlebot
 Allow: /
 
-Sitemap: http://www.kartatopia.com/sitemap.xml
+Sitemap: https://www.kartatopia.com/sitemap.xml

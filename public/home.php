@@ -9,11 +9,11 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
     <section id="product">
       <div class="container">
        
-        <h3 class="text-center">
+        <h1 class="text-center">
         <?php 
         echo (isset($views['unavailable'])) ? $views['unavailable'] : "Products";
         ?>
-        </h3>
+        </h1>
         <hr class="star-primary">
         <div class="row">
         <?php 
@@ -55,11 +55,11 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
     <!-- Blog -->
     <section class="success" id="blog">
       <div class="container">
-        <h2 class="text-center">
+        <h1 class="text-center">
          <?php 
         echo (isset($views['unpublished'])) ? $views['unpublished'] : "Blog";
         ?>
-        </h2>
+        </h1>
         <hr class="star-light">
         <div class="row">
           <div class="col-lg-8 mx-auto">
@@ -84,7 +84,7 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
                </h5>
                <?php 
                $article = strip_tags($post['post_content']);
-               $article_content = substr($article, 0, 480);
+               $article_content = substr($article, 0, 440);
                $article_content = substr($article, 0, strrpos($article_content, " "));
                ?>
                <p class="card-text"><?php echo html_entity_decode($article_content); ?></p>
@@ -166,7 +166,7 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
      <!-- About Section -->
     <section class="success" id="about">
       <div class="container">
-        <h2 class="text-center">About Us</h2>
+        <h1 class="text-center">About Us</h1>
         <hr class="star-light">
         <div class="row">
           <div class="col-lg-4 ml-auto">

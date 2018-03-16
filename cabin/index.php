@@ -13,7 +13,7 @@ if (isset($_SESSION['limit']) && $_SESSION['limit'] == 1) {
  
 }
 
-if ($_SESSION['limit'] == 0) {
+if (isset($_SESSION['limit']) && $_SESSION['limit'] == 0) {
  
  header('Location: login.php');
  
@@ -47,13 +47,13 @@ if ((!isset($_SESSION['agent'])) || ($_SESSION['agent'] != sha1($_SERVER['HTTP_U
  	$messages = $data_messages['results'];
  	$totalMessages = $dashboards -> totalMessages();
  	
- 	scHeader("$pageTitle\n");
+ 	back_office_header("$pageTitle\n");
  	
  	include 'navigation.php';
  	
  	include 'route.php';
  	
- 	scFooter();
+ 	back_office_footer();
  	
  	ob_end_flush();
  	

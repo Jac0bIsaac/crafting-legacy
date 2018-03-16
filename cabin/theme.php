@@ -1,6 +1,6 @@
 <?php if (!defined('APP_KEY')) header("Location: 403.php"); 
 
-function scHeader($pageTitle = NULL)
+function back_office_header($pageTitle = NULL)
 {
 	
 ?>
@@ -56,7 +56,7 @@ function scHeader($pageTitle = NULL)
 <?php 
 }
 
-function scFooter()
+function back_office_footer()
 {
 ?>
 </div>

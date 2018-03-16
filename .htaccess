@@ -12,6 +12,7 @@ deny from all
  RewriteCond %{REQUEST_FILENAME} !-l 
  RewriteRule ^(.*)$ index.php [QSA,L]
  ErrorDocument 404 /public/404.php
+ Options All -Indexes
 </IfModule>
 
 ############### SET Keep-Alive ##################

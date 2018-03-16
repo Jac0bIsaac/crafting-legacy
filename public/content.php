@@ -8,7 +8,7 @@ function grabHome()
   $views = array();
   
   $data_products = $products -> findProducts(0, 6);
-  $data_posts = $posts -> findPosts(0, 3);
+  $data_posts = $posts -> findPosts(0, 6);
   
   // latest products
   $views['products'] = $data_products['results'];
@@ -109,20 +109,12 @@ function grabCategory($param)
     
  if (!$catId) ErrorNotFound();
     
-    $catPost = $frontContent -> grabCategoryPost($post_cats, (int)$catId['categoryID'], $sanitize);
+ $catPost = $frontContent -> grabCategoryPost($post_cats, (int)$catId['categoryID'], $sanitize);
     
- if (empty($catPost['totalRows'])) {
-        
-    $views['errorMessage'] = "Sorry, there aren't any posts published";
-        
- } else {
-        
-    $views['catPosts'] = $catPost['catPosts'];
-    $views['totalCatPost'] = $catPost['totalRows'];
-    
- }
-    
-  require 'category.php';
+ $views['catPosts'] = $catPost['catPosts'];
+ $views['totalCatPost'] = $catPost['totalRows'];
+ 
+ require 'category.php';
     
 }
 

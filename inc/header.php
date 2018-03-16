@@ -43,6 +43,16 @@ function setHeader($match, $param = null)
     <!-- Icon -->
     <link href="<?php echo APP_PUBLIC; ?>home/img/favicon.ico" rel="Shortcut Icon" />
     
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115374904-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-115374904-1');
+</script>
+    
 
   </head>
 
@@ -79,13 +89,13 @@ function setHeader($match, $param = null)
 
     <!-- Header -->
  <?php 
- if (!$match && empty($param)) :
+ if (!$match) :
  
  ?>
   
     <header class="masthead">
       <div class="container">
-        <img class="img-fluid" src="<?php echo APP_PUBLIC; ?>home/img/error404.png" alt="powering your online store">
+        <img class="img-fluid" src="<?php echo APP_PUBLIC; ?>home/img/error404.png" alt="Error Page Not Found">
         <div class="intro-text">
           <span class="name">Page not Found</span>
           <hr class="star-light">
@@ -120,6 +130,7 @@ function blogHeader($match, $param = null)
     global $imageGraphProtocol, $ogp;
     
     $views = array();
+    $views['errorMessage'] = false;
     
     $data_configs = $configurations -> findConfigs();
     $configs = $data_configs['results'];
@@ -139,11 +150,17 @@ function blogHeader($match, $param = null)
    // get post categories
    $postCategories = $widgets -> setSidebarCategories();
    $navcats = $postCategories['categories'];
-    
+     
    // get detail post
-   if (($match == 'post') && (!empty($param))) {
+   if (($match == 'post') && (!is_null($param))) {
     
       $r = $frontContent -> readPost($posts, $param, $sanitize);
+      
+      if (!$r) {
+          
+          $views['errorMessage'] = true;
+      
+      } 
       
       $post_image = isset($r['post_image']) ? $r['post_image'] : '';
       $postId = (int)$r['postID'];
@@ -151,7 +168,7 @@ function blogHeader($match, $param = null)
       $date_published = isset($r['date_created']) ? makeDate($r['date_created'], 'id') : '';
       $author = isset($r['volunteer_login']) ? htmlspecialchars($r['volunteer_login']) : '';
       $post_slug = isset($r['post_slug']) ? htmlspecialchars($r['post_slug']) : '';
-     
+      
       $post_content = strip_tags($r['post_content']);
       $description = substr($post_content, 0, 280);
       $description = substr($post_content, 0, strrpos($description, " "));
@@ -163,20 +180,20 @@ function blogHeader($match, $param = null)
       $ogp -> setLocale('id_ID');
       $ogp -> setSiteName($meta_title);
       $ogp -> setTitle($post_title);
-      $ogp -> setDescription(html_entity_decode($description));
+      $ogp -> setDescription(strip_tags_content($description));
       $ogp -> setType('website');
       $ogp -> setURL(APP_DIR . 'post' . '/'. $postId . '/' . $post_slug);
       $ogp -> addImage($imageGraphProtocol);
-    
+      
    } elseif (($match == 'category') && (!empty($param))) {
      
+       // get detail category
       $getCat = $categories -> findCategoryBySlug($param, $sanitize);
       $category_title = htmlspecialchars($getCat['category_title']);
       
    }
    
-   
-   // get detail category
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -189,8 +206,9 @@ function blogHeader($match, $param = null)
     <?php 
     if (($match == 'post') && (!empty($param))):
     ?> 
-    <meta name="description" content="<?php echo $match . " | " . $post_title; ?>"/>
-    <meta name="keywords" content="<?php echo $post_title; ?>" />
+    <meta name="description" content="<?php echo strip_tags_content($description); ?>">
+    <meta name="keywords" content="<?php echo $meta_key; ?>" >
+    <base href="<?php echo APP_DIR; ?>" >
     
     <?php 
       echo $ogp -> toHTML();
@@ -199,26 +217,45 @@ function blogHeader($match, $param = null)
     elseif (($match == 'category') && (!empty($param))) :
     ?>
     <meta name="description" content="<?php echo $match . " | " . $category_title; ?>">
-    <meta name="keywords" content="<?php echo $category_title; ?>">
+    <meta name="keywords" content="<?php echo $meta_key; ?>">
     <?php 
     else :
     ?>
-    <meta name="description" content="<?php echo "$match-$meta_desc"; ?>">
-    <meta name="keywords" content="<?php echo "$param-$meta_key"; ?>">
+    <meta name="description" content="<?php echo "$meta_desc"; ?>">
+    <meta name="keywords" content="<?php echo "$meta_key"; ?>">
    <?php 
    endif; 
    ?>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115374904-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-115374904-1');
+</script>
   
   <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72ddf710fe560012c5e7a4&product=social-ab' async='async'></script> 
       
   <title>
     <?php 
      if (($match == 'post') && (!empty($param))) : 
-         echo  $post_title;
+        if (isset($views['errorMessage']) && $views['errorMessage'] == true) :
+         
+          echo  $_SERVER['SERVER_PROTOCOL'] . " - 404 Not Found" . PHP_EOL;
+        
+        else :
+           
+            echo $post_title;
+         
+        endif;
+        
      elseif (($match == 'category') && (!empty($param))) :
          echo $category_title;
      else :
-         echo "$match | $meta_title | Call Us: $phone";
+         
+       echo "$match | $meta_title";
      
       endif;    
     ?> 
@@ -291,8 +328,28 @@ function blogHeader($match, $param = null)
     <!-- Page Header -->
     <?php 
     if (($match == 'post') && (!empty($param))) :
+       if (isset($views['errorMessage']) && $views['errorMessage'] == true) :
     ?>
    
+       <header class="masthead" style="background-image: url('<?php echo APP_DIR; ?>public/blog/img/250087_40percent.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1>404</h1>
+              <span class="subheading">
+               Error Page Not Found
+             </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+     <?php
+      
+     else:
+     ?>
      <header class="masthead" style="background-image: url('<?php echo APP_PICTURE . $post_image; ?>')">
       <div class="overlay"></div>
       <div class="container">
@@ -326,6 +383,7 @@ function blogHeader($match, $param = null)
       </div>
     </header>
     <?php 
+    endif;
     elseif (($match == 'category') && (!empty($param))) :
     ?>
     
@@ -345,8 +403,9 @@ function blogHeader($match, $param = null)
       </div>
     </header>
     
+ 
     <?php
-    else :
+     else :
     ?>
       <header class="masthead" style="background-image: url('<?php echo APP_DIR; ?>public/blog/img/teamwork.jpg')">
       <div class="overlay"></div>

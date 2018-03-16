@@ -53,9 +53,9 @@ if (empty($loginFormSubmitted) == false) {
  	
  	$_SESSION['KCFINDER']['disabled'] = false;
  	
- 	$_SESSION['KCFINDER']['uploadURL'] = "../pictures";
+ 	$_SESSION['KCFINDER']['uploadURL'] =  APP_DIR . 'files/picture/';
  	
- 	$_SESSION['KCFINDER']['uploadDir'] = "";
+ 	$_SESSION['KCFINDER']['uploadDir'] =  "";
  	
  	//Time limit for accessing administrator page
  	$_SESSION['limit'] = 1;

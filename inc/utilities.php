@@ -513,7 +513,7 @@ function generateHash($quantityChar)
 // fungsi batas waktu
 function timeKeeper()
 {
- $time_limit = 18440;
+ $time_limit = 30000;
  $_SESSION ['timeOut'] = time() + $time_limit;
 }
 
@@ -1042,4 +1042,42 @@ function valueSizeValidation($form_fields)
      }
     
    }
+}
+
+// remove the HTML tags
+function strip_tags_content($text, $tags = '', $invert = false)
+{
+    preg_match_all('/<(.+?)[\s]*\/?[\s]*>/si', trim($tags), $tags);
+    $tags = array_unique($tags[1]);
+    
+    if(is_array($tags) AND count($tags) > 0) {
+        if($invert == FALSE) {
+            return preg_replace('@<(?!(?:'. implode('|', $tags) .')\b)(\w+)\b.*?>.*?</\1>@si', '', $text);
+        }
+        else {
+            return preg_replace('@<('. implode('|', $tags) .')\b.*?>.*?</\1>@si', '', $text);
+        }
+    }
+    elseif($invert == FALSE) {
+        return preg_replace('@<(\w+)\b.*?>.*?</\1>@si', '', $text);
+    }
+    return $text;
+    
+}
+
+function startSessionOnSite()
+{
+    $sn = session_name();
+    if (isset($_COOKIE[$sn])) {
+        $sessid = $_COOKIE[$sn];
+    } else if (isset($_GET[$sn])) {
+        $sessid = $_GET[$sn];
+    } else {
+        return session_start();
+    }
+    
+    if (!preg_match('/^[a-zA-Z0-9,\-]{22,40}$/', $sessid)) {
+        return false;
+    }
+    return session_start();
 }

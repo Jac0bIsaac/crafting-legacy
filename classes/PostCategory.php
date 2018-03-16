@@ -70,6 +70,8 @@ class PostCategory extends Model
     
     $dataCatPost = array();
     
+    $catIdSanitized = $this->filteringId($sanitize, $catId, 'sql');
+    
  try {
                
    $sql = "SELECT
@@ -87,14 +89,13 @@ class PostCategory extends Model
                 posts.postID DESC ";
         
         $stmt = $this->dbc->prepare($sql);
-        $stmt -> execute(array(':categoryID' => $catId));
+        $stmt -> execute(array(':categoryID' => $catIdSanitized));
         
         foreach ($stmt -> fetchAll() as $results) {
             $dataCatPost[] = $results;
         }
          
-      
-        $totalRows = $stmt -> rowCount();
+       $totalRows = $stmt -> rowCount();
         
     return(array("catPosts" => $dataCatPost, 'totalRows' => $totalRows));
         
