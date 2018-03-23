@@ -95,4 +95,9 @@ class Model
 			
 	}
 	
+	public function __destruct()
+	{
+	   $this->dbc = null;
+	}
+	
 }

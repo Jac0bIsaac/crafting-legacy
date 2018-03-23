@@ -23,7 +23,11 @@ if ((!isset($_SESSION['agent'])) || ($_SESSION['agent'] != sha1($_SERVER['HTTP_U
 	
 	header('Location: login.php');
 	 
- } elseif (!$authentication -> isVolunteerLoggedIn() && $_SESSION['limit'] == 0) {
+} elseif (!isset($_SESSION['volunteerLoggedIn'])) {
+    
+    header('Location: login.php');
+    
+} elseif (!$authentication -> isVolunteerLoggedIn() && $_SESSION['limit'] == 0) {
  	
  	header('Location: login.php');
  	

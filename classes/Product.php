@@ -202,4 +202,8 @@ class Product extends Model
      
  }
  
+ public function __destruct()
+ {
+   parent::__destruct();
+ }
 }

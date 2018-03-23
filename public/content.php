@@ -32,7 +32,7 @@ function grabPost($param = null)
  global $dbc, $posts, $post_cats, $widgets, $frontContent, $sanitize, $frontPaginator;
  
  $views = array();
-  
+ 
  if (!is_null($param)) {
      
    $read = $frontContent -> readPost($posts, $param, $sanitize);
@@ -126,7 +126,7 @@ function submitMessage()
  
  $views = array();
  
- $name = $email = $phone = $msg = "";
+ $name = $email = $phone = $msg = null;
  
  $form_fields = array("name"=>90, "email"=>180, "phone" => 13, "message"=>500);
  
@@ -214,4 +214,7 @@ function ErrorNotFound()
 {
   header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
   include '404.php';
+  gc_enable();
+  gc_collect_cycles();
+  gc_disable();
 }

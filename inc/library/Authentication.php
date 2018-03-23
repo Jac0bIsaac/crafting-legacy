@@ -11,7 +11,7 @@ class Authentication
  {
  	$this->dbc = $dbc;
  }
- 
+  
  public function findIdByEmail($email)
  {
  	$sql = "SELECT ID FROM volunteer WHERE volunteer_email = :email";
@@ -136,7 +136,7 @@ class Authentication
   $_SESSION['volunteerLoggedIn'] = false;
  	
   if (isset($_SESSION['volunteerLoggedIn']) 
-      && $_SESSION['volunteerLoggedIn'] == true) {
+      && $_SESSION['volunteerLoggedIn'] === true) {
  	  
      return  true;
      
@@ -250,4 +250,8 @@ class Authentication
   
  }
  
+ public function __destruct()
+ {
+   $this->dbc = null;   
+ }
 }

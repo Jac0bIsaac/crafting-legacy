@@ -73,4 +73,8 @@ class Dashboard extends Model
     
  }
  
+ public function __destruct()
+ {
+   parent::__destruct();
+ }
 }

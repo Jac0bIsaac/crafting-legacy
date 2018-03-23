@@ -1,9 +1,8 @@
 <?php 
-$start = microtime(true);
-echo "\n Memory Consumption is   ";
-echo round(memory_get_usage()/1048576,2).''.' MB';
-require 'inc/config.php';
+$time_start = microtime(true);
 
+require 'inc/config.php';
+$cache_contents = null;
 $findParam = $dispatching-> findRequestParam(); // finding request URI
 
 $matched = (is_array($findParam) && array_key_exists(0, $findParam)) ? $findParam[0] : '';
@@ -30,7 +29,7 @@ include 'public/content.php';
 if (!$action) {
     
    grabHome();
-
+    
 } else {
     
    switch ($action) {
@@ -40,6 +39,8 @@ if (!$action) {
            if ($parameters) {
                
               checkDetailRequest($action, $param1);
+              
+              $cache_contents = ob_get_contents();
               
            } else {
                
@@ -59,6 +60,8 @@ if (!$action) {
            if ($parameters) {
                
                checkDetailRequest($action, $param1);
+               
+               $cache_contents = ob_get_contents();
                
            } else {
                
@@ -94,8 +97,12 @@ if ($action == 'posts' || $action == 'post' || $action == 'category') {
     
 }
 
+$cache_contents = ob_get_contents();
 ob_end_flush();
+$cache -> write_cache($cache_contents);
 
-echo ' '.(microtime(true)-$start);
-echo "\n Memory Consumption is   ";
+$time_end = microtime(true);
+$time = $time_end - $time_start;
+echo "$time seconds\n";
+echo "<br>\n Memory Consumption is   ";
 echo round(memory_get_usage()/1048576,2).''.' MB';

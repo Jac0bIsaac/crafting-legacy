@@ -159,4 +159,9 @@ class Files extends Model
    
   }
   
+  public function __destruct()
+  {
+     parent::__destruct();
+  }
+  
 }

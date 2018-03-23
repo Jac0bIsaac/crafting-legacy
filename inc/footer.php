@@ -2,7 +2,7 @@
 function setFooter()
 {
 ?>
- <!-- Footer -->
+ 
     <footer class="text-center">
       <div class="footer-above">
         <div class="container">
@@ -35,7 +35,7 @@ function setFooter()
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a class="btn-social btn-outline" href="https://github.com/PiLUS-Cart/PiLUS" title="free and open source e-commerce software">
+                  <a class="btn-social btn-outline" href="https://github.com/PiLUS-Cart/Piluscart-1.5" title="free and open source e-commerce software">
                     <i class="fa fa-fw fa-github"></i>
                   </a>
                 </li>
@@ -73,25 +73,20 @@ function setFooter()
       </div>
     </footer>
 
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-top d-lg-none">
       <a class="btn btn-primary js-scroll-trigger" href="#page-top">
         <i class="fa fa-chevron-up"></i>
       </a>
     </div>
      
-    <!-- Bootstrap core JavaScript -->
     <script src="<?php echo APP_PUBLIC; ?>home/vendor/jquery/jquery.min.js"></script>
-    <script src="<?php echo APP_PUBLIC; ?>home/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
 
-    <!-- Plugin JavaScript -->
     <script src="<?php echo APP_PUBLIC; ?>home/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Contact Form JavaScript -->
     <script src="<?php echo APP_PUBLIC; ?>home/js/jqBootstrapValidation.js"></script>
     <script src="<?php echo APP_PUBLIC; ?>home/js/form_validate.js"></script>
 
-    <!-- Custom scripts for this template -->
     <script src="<?php echo APP_PUBLIC; ?>home/js/freelancer.min.js"></script>
    
   </body>
@@ -152,11 +147,9 @@ function blogFooter()
       </div>
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
     <script src="<?php echo APP_PUBLIC; ?>blog/vendor/jquery/jquery.min.js"></script>
-    <script src="<?php echo APP_PUBLIC; ?>blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
 
-    <!-- Custom scripts for this template -->
     <script src="<?php echo APP_PUBLIC; ?>blog/js/clean-blog.min.js"></script>
     
   </body>

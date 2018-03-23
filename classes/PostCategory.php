@@ -110,4 +110,8 @@ class PostCategory extends Model
                
  }
   
+ public function __destruct()
+ {
+   parent::__destruct();
+ }
 }

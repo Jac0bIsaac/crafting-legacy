@@ -177,6 +177,11 @@ class Widget extends Model
          $this->error = LogError::customErrorMessage();
          
      }
+     
  }
   
+ public function __destruct()
+ {
+   parent::__destruct();
+ }
 }

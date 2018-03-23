@@ -234,5 +234,9 @@ class Menu extends Model
   return $sort;
   
  }
- 
+
+ public function __destruct()
+ {
+     parent::__destruct();
+ }
 }

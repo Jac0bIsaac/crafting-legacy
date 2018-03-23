@@ -16,43 +16,51 @@ public function createPost($catID, $author, $created, $title, $slug, $content, $
   		
   		// insert into posts
      $sql = "INSERT INTO posts(post_image, 
-  		   post_author, date_created, post_title, 
-  		   post_slug, post_content, post_status, 
-  		   comment_status)VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+  		                post_author, date_created, post_title, 
+  		                post_slug, post_content, post_status, 
+  		                comment_status)
+           VALUES(:image, :author, :created, :title, :slug, 
+                 :content, :post_status, :comment_status)";
   		
-     $data = array($picture, $author, $created, $title, $slug, 
-                  $content, $post_status, $comment_status);
+     $data = array(":image" => $picture, ":author" => $author, 
+                  ":created" => $created, ":title" => $title, 
+                  ":slug" => $slug, ":content" => $content, 
+                  ":post_status" => $post_status, ":comment_status" => $comment_status);
   		 
      } else {
   			
   	  $sql = "INSERT INTO posts(post_author, 
                 date_created, post_title, post_slug, 
                 post_content, post_status, comment_status)
-  				VALUES(?, ?, ?, ?, ?, ?, ?)";
+  				VALUES(:author, :created, :title, :slug, 
+                 :content, :post_status, :comment_status))";
   		  
-  	 $data = array($author, $created, $title, $slug, $content, $post_status, $comment_status);
+  	  $data = array(":author" => $author,
+  	      ":created" => $created, ":title" => $title,
+  	      ":slug" => $slug, ":content" => $content,
+  	      ":post_status" => $post_status, ":comment_status" => $comment_status);
+  	  
   		  
   	}
   	
-  		
   	$stmt = $this->statementHandle($sql, $data);
   		
   	$postID = $this->lastId();
   		
   	if (is_array($catID)) {
   			
-  			foreach ($_POST['catID'] as $catID) {
+  	foreach ($_POST['catID'] as $catID) {
   			 
-  			$stmt = $this->statementHandle("INSERT INTO post_category(postID, categoryID)
+  	$stmt = $this->statementHandle("INSERT INTO post_category(postID, categoryID)
   					VALUES(?, ?)", array($postID, $catID));
   			
-  			}
+  	}
   			
-  		} else {
+  	} else {
   		    
-  		    $stmt = $this->statementHandle("INSERT INTO post_category(postID, categoryID)
+  	$stmt = $this->statementHandle("INSERT INTO post_category(postID, categoryID)
   					VALUES(?, ?)", array($postID, $catID));
-  		}
+  	}
   		
 }
   	
@@ -84,26 +92,30 @@ public function updatePost($id, $catID, $modified, $title, $slug,
   }
   	   
   	$stmt = $this->statementHandle($sql, $data);
+  	 
+  	$queryId = "SELECT postID FROM posts WHERE postID = ?";
+  	$stmt2 = $this->statementHandle($queryId, array($id));
+  	$row = $stmt2 -> fetch();
+    
+    // delete post_category 
+  	$deleteCategoryByPostId = "DELETE FROM post_category WHERE postID = :postID";
+  	$stmt3 = $this->dbc->prepare($deleteCategoryByPostId);
+  	$stmt3 -> execute(array(':postID'=> $row['postID']));
   	  
-     // delete post_category 
-  	  $deleteCategoryByPostId = "DELETE FROM post_category WHERE postID = :postID";
-  	  $stmt = $this->dbc->prepare($deleteCategoryByPostId);
-  	  $stmt -> execute(array(':postID'=> $id));
-  	  
-  	  if (is_array($catID)) {
+  	if (is_array($catID)) {
   	     
-  	     foreach ($_POST['catID'] as $catID) {
-  	        $stmt = $this->dbc->prepare("INSERT INTO post_category(postID, categoryID)VALUES(:postID, :categoryID)");
-  	        $stmt -> execute(array(':postID' => $id, ':categoryID' => $catID)); 
+  	    foreach ($_POST['catID'] as $catID) {
+  	       $stmt4 = $this->dbc->prepare("INSERT INTO post_category(postID, categoryID)VALUES(:postID, :categoryID)");
+  	       $stmt4 -> execute(array(':postID' => $id, ':categoryID' => $catID)); 
   	     }
   	     
-  	  } else {
+  	} else {
   	      
-  	      $stmt = $this->dbc->prepare("INSERT INTO post_category(postID, categoryID)VALUES(:postID, :categoryID)");
-  	      $stmt -> execute(array(':postID' => $id, ':categoryID' => $catID)); 
-  	  }
-  	  
-  	  
+  	    $stmt4 = $this->dbc->prepare("INSERT INTO post_category(postID, categoryID)VALUES(:postID, :categoryID)");
+  	    $stmt4 -> execute(array(':postID' => $id, ':categoryID' => $catID));
+  	    
+  	 }
+  	   
 }
   	
   	public function deletePost($id, $sanitizing)
@@ -437,6 +449,11 @@ public function updatePost($id, $catID, $modified, $title, $slug,
  	
  	return implode("\n", $html);
  	
+ }
+ 
+ public function __destruct()
+ {
+   parent::__destruct();
  }
   
 }

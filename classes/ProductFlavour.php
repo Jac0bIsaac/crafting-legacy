@@ -175,4 +175,9 @@ class ProductFlavour extends Model
      
   }
   
+  public function __destruct()
+  {
+    parent::__destruct();
+  }
+  
 }

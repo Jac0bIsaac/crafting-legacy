@@ -256,5 +256,10 @@ class Category extends Model
  	}
  	
  }
-	
+ 
+ public function __destruct()
+ {
+   parent::__destruct();
+ }
+ 	
 }

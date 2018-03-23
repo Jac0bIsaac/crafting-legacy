@@ -284,4 +284,9 @@ class Page extends Model
      
  }
  
+ public function __destruct()
+ {
+   parent::__destruct();
+ }
+ 
 }

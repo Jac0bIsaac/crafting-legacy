@@ -23,27 +23,36 @@ function setHeader($match, $param = null)
   <head>
 
     <meta charset="utf-8">
+   
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="<?php echo $views['meta_description']; ?>">
     <meta name="keywords" content="<?php echo $views['meta_keywords']; ?>">
+    
+    <meta itemprop="name" content="<?php echo $views['meta_title']; ?>">
+    <meta itemprop="description" content="<?php echo strip_tags_content($views['meta_description']); ?>">
+    <meta itemprop="image" content="<?php echo APP_DIR . 'home/img/kartatopia.png' ?>"> 
 
-    <title><?php echo "{$views['tagline']} | {$views['meta_title']} | Call Us: {$views['phone']}";  ?></title>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="<?php echo $views['meta_title']; ?>">
+    <meta name="twitter:title" content="<?php echo $views['meta_keywords'] ?>">
+    <meta name="twitter:description" content="<?php echo strip_tags_content($views['meta_description']); ?>">
+    <meta name="twitter:creator" content="<?php echo $views['phone']; ?>">
+    <meta name="twitter:image:src" content="<?php echo APP_DIR . 'home/img/kartatopia.png'; ?>">
+     
 
-    <!-- Bootstrap core CSS -->
-    <link href="<?php echo APP_PUBLIC; ?>home/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="<?php echo APP_PUBLIC; ?>home/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <title><?php echo "{$views['meta_title']} | {$views['tagline']} | Call Us: {$views['phone']}";  ?></title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
     <link href="<?php echo APP_PUBLIC; ?>home/css/freelancer.min.css" rel="stylesheet">
-    
-    <!-- Icon -->
+   
     <link href="<?php echo APP_PUBLIC; ?>home/img/favicon.ico" rel="Shortcut Icon" />
     
-    <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115374904-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -58,7 +67,6 @@ function setHeader($match, $param = null)
 
   <body id="page-top">
 
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <a href="<?php echo APP_DIR; ?>" class="navbar-brand js-scroll-trigger" href="#page-top">
@@ -170,20 +178,25 @@ function blogHeader($match, $param = null)
       $post_slug = isset($r['post_slug']) ? htmlspecialchars($r['post_slug']) : '';
       
       $post_content = strip_tags($r['post_content']);
-      $description = substr($post_content, 0, 280);
+      $description = substr($post_content, 0, 150);
       $description = substr($post_content, 0, strrpos($description, " "));
       
       // Core Open Graph Protocol
-      $imageGraphProtocol -> setSecureURL(APP_PICTURE . $post_image);
+      $imageGraphProtocol -> setURL(APP_PICTURE .$post_image);
+      $imageGraphProtocol -> setSecureURL(APP_PICTURE .$post_image);
       $imageGraphProtocol -> setType('image/jpeg');
+      $imageGraphProtocol -> setWidth(400);
+      $imageGraphProtocol -> setHeight(300);
       
       $ogp -> setLocale('id_ID');
       $ogp -> setSiteName($meta_title);
       $ogp -> setTitle($post_title);
       $ogp -> setDescription(strip_tags_content($description));
-      $ogp -> setType('website');
+      $ogp -> setType('article');
       $ogp -> setURL(APP_DIR . 'post' . '/'. $postId . '/' . $post_slug);
+      $ogp -> setDeterminer("");
       $ogp -> addImage($imageGraphProtocol);
+      
       
    } elseif (($match == 'category') && (!empty($param))) {
      
@@ -202,17 +215,38 @@ function blogHeader($match, $param = null)
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+   
     <?php 
     if (($match == 'post') && (!empty($param))):
     ?> 
+    <base href="<?php echo APP_DIR; ?>" >
     <meta name="description" content="<?php echo strip_tags_content($description); ?>">
     <meta name="keywords" content="<?php echo $meta_key; ?>" >
-    <base href="<?php echo APP_DIR; ?>" >
     
+    <meta itemprop="name" content="<?php echo $post_title; ?>">
+    <meta itemprop="description" content="<?php echo strip_tags_content($description); ?>">
+    <meta itemprop="image" content="<?php echo APP_PICTURE . $post_image ?>"> 
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="<?php echo $meta_title; ?>">
+    <meta name="twitter:title" content="<?php echo $post_title ?>">
+    <meta name="twitter:description" content="<?php echo strip_tags_content($description); ?>">
+    <meta name="twitter:creator" content="<?php echo $author; ?>">
+    <meta name="twitter:image:src" content="<?php echo APP_PICTURE . 'thumb/thumb_'.$post_image; ?>">
+     
     <?php 
+      // fb opengraph data
       echo $ogp -> toHTML();
     ?>
+    <meta property="og:image:alt" content="<?php echo $post_title; ?>" />
+    <meta property="article:published_time" content="<?php echo $date_published; ?>" />
+    <meta property="article:modified_time" content="<?php new DateTime('now', new DateTimeZone('Asia/Jakarta')); ?>" />
+    <meta property="article:section" content="<?php echo $post_cats -> setLinkCategories($postId); ?>" />
+    <meta property="article:tag" content="<?php echo $meta_key; ?>" />
+    <meta property="fb:admins" content="100001563066320" />
+    <meta property="fb:app_id" content="237205856821206" />
+   
+    
     <?php 
     elseif (($match == 'category') && (!empty($param))) :
     ?>
@@ -226,7 +260,7 @@ function blogHeader($match, $param = null)
    <?php 
    endif; 
    ?>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
+  
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115374904-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -261,26 +295,22 @@ function blogHeader($match, $param = null)
     ?> 
     </title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="<?php echo APP_PUBLIC; ?>blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="<?php echo APP_PUBLIC; ?>blog/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+    <link href="<?php echo APP_PUBLIC; ?>home/img/favicon.ico" rel="Shortcut Icon" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-    <!-- Custom styles for this template -->
+    
     <link href="<?php echo APP_PUBLIC; ?>blog/css/clean-blog.min.css" rel="stylesheet">
     <link href="<?php echo APP_PUBLIC; ?>blog/css/pagination.css" rel="stylesheet">
     <link rel="alternate" type="application/rss+xml" title="RSS Feeds" href="<?php echo APP_DIR . 'rss.xml'; ?>" />
-    
-  
     
   </head>
 
   <body>
 
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand" href="<?php echo APP_DIR; ?>"><i class="fa fa-arrow-left"></i> Home</a>
@@ -325,7 +355,6 @@ function blogHeader($match, $param = null)
       </div>
     </nav>
 
-    <!-- Page Header -->
     <?php 
     if (($match == 'post') && (!empty($param))) :
        if (isset($views['errorMessage']) && $views['errorMessage'] == true) :
@@ -447,7 +476,7 @@ function contactHeader()
   
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
   <head>
 
@@ -458,18 +487,15 @@ function contactHeader()
 
     <title><?php echo "{$views['tagline']} | {$views['meta_title']} | Call Us: {$views['phone']}";  ?></title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="<?php echo APP_PUBLIC; ?>home/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="<?php echo APP_PUBLIC; ?>home/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
     <link href="<?php echo APP_PUBLIC; ?>home/css/freelancer.min.css" rel="stylesheet">
     
-    <!-- Icon -->
     <link href="<?php echo APP_PUBLIC; ?>home/img/favicon.ico" rel="Shortcut Icon" />
     
 
@@ -477,7 +503,6 @@ function contactHeader()
 
   <body id="page-top">
 
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <a href="<?php echo APP_DIR; ?>" class="navbar-brand js-scroll-trigger" href="#page-top">

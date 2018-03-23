@@ -1067,6 +1067,8 @@ function strip_tags_content($text, $tags = '', $invert = false)
 
 function startSessionOnSite()
 {
+    session_set_cookie_params(0);
+    $lifetime=600;
     $sn = session_name();
     if (isset($_COOKIE[$sn])) {
         $sessid = $_COOKIE[$sn];
@@ -1074,10 +1076,12 @@ function startSessionOnSite()
         $sessid = $_GET[$sn];
     } else {
         return session_start();
+        return setcookie($sn,session_id(),time()+$lifetime);
     }
     
     if (!preg_match('/^[a-zA-Z0-9,\-]{22,40}$/', $sessid)) {
         return false;
     }
     return session_start();
+    return setcookie($sn,session_id(),time()+$lifetime);
 }

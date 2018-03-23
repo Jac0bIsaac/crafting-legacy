@@ -216,4 +216,9 @@ class Configuration
  	
  }
  
+ public function __destruct()
+ {
+   $this->dbc = null;
+ }
+ 
 }

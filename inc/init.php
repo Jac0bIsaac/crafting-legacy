@@ -33,7 +33,7 @@ if (!function_exists('autoloader')) {
 }
 
 
-if (version_compare(PHP_VERSION, '5.4', '>=')) {
+if (version_compare(PHP_VERSION, '5.5', '>=')) {
     
     if (version_compare(PHP_VERSION, '5.6', '>=')) {
         
@@ -42,6 +42,23 @@ if (version_compare(PHP_VERSION, '5.4', '>=')) {
     }
     
 } 
+
+$cache = new SimpleCache();
+
+if ($cache -> is_cached()) {
+    
+    echo $cache -> read_cache();
+    exit();
+    
+}
+
+if ( !startSessionOnSite() ) {
+    session_id( uniqid() );
+    session_start();
+    session_regenerate_id();
+}
+
+@ob_start();
 
 $dbc = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
 $dbc -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -72,14 +89,6 @@ $dispatching = new Dispatcher();
 $frontContent = new FrontContent();
 $frontPaginator = new Paginator(6, 'p');
 $postFeeds = new RssFeed($dbc);
-
-if ( !startSessionOnSite() ) {
-    session_id( uniqid() );
-    session_start();
-    session_regenerate_id();
-}
-
-@ob_start();
 
 require(APP_SYSPATH . APP_LIBRARY . DS . 'open-graph-protocol.php');
 

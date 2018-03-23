@@ -3,6 +3,25 @@ order allow,deny
 deny from all
 </Files>
 
+############### SET Keep-Alive ##################
+<IfModule mod_headers.c>
+ Header always append X-Frame-Options SAMEORIGIN
+ #Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+ Header set Connection keep-alive
+ Header set Referrer-Policy "no-referrer-when-downgrade"
+ <filesMatch ".(js|css|ico|txt|htm|html|png|jpg|gif|js|eot|svg|ttf|woff|woff2|php)$">
+Header set Cache-Control "max-age=31536000, public"
+</filesMatch>
+</IfModule>
+
+############### SET COOKIES DOMAIN ##################
+# Use Mod_deflate to compress static files
+<IfModule mod_deflate.c>
+ <filesmatch ".(js|css|ico|txt|htm|html|png|jpg|gif|js|eot|svg|ttf|woff|woff2|php)$">
+ SetOutputFilter DEFLATE
+ </filesmatch>
+</IfModule>
+
 <IfModule mod_rewrite.c>
  RewriteEngine On
  RewriteCond %{REQUEST_FILENAME} !\.(ico|css|png|jpg|gif|js|eot|svg|ttf|woff|woff2)$ [NC]
@@ -13,17 +32,4 @@ deny from all
  RewriteRule ^(.*)$ index.php [QSA,L]
  ErrorDocument 404 /public/404.php
  Options All -Indexes
-</IfModule>
-
-############### SET Keep-Alive ##################
-<IfModule mod_headers.c>
- Header set Connection keep-alive
-</IfModule>
-
-############### SET COOKIES DOMAIN ##################
-# Use Mod_deflate to compress static files
-<IfModule mod_deflate.c>
- <filesmatch ".(js|css|ico|txt|htm|html|png|jpg|gif|js|eot|svg|ttf|woff|woff2|php)$">
- SetOutputFilter DEFLATE
- </filesmatch>
 </IfModule>

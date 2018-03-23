@@ -10,8 +10,8 @@ $rules = array(
     'page'     => "/page/(?'page'[^/]+)",
     'post'     => "/post/(?'id'\d+)/(?'post'[\w\-]+)",
     'posts'    => "/posts/([^/]*)",
-    'pictures' => "/pictures/",
-    'picture'  => "/picture/(?'text'[^/]+)/(?'id'\d+)",
+    'products' => "/products/",
+    'product'  => "/product/(?'id'\d+)/(?'text'[^/]+)",
     'search'   => "(?'search'[\w\-]+)" 
   
 );

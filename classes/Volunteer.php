@@ -364,4 +364,9 @@ class Volunteer extends Model
 	 return $key;
 	}
 	
+ public function __destruct()
+ {
+  parent::__destruct();
+ }
+	
 }

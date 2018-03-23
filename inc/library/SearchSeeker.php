@@ -118,4 +118,8 @@ class SearchSeeker
  	
  }
  
+ public function __destruct()
+ {
+   $this->_dbc = null;
+ }
 }

@@ -1,6 +1,9 @@
 <?php
 date_default_timezone_set('Asia/Jakarta');
-ini_set('memory_limit', '10M');
+ini_set('memory_limit', '2M');
+//ini_set("session.cookie_secure", "True");  //secure
+ini_set("session.cookie_httponly", "True"); // httpOnly
+//header("Content-Security-Policy: default-src https:;font-src 'unsafe-inline' data: https:; form-action 'self' https://kartatopia.com; frame-ancestors 'none'; img-src data: https:; object-src 'self' https://kartatopia.com; script-src 'unsafe-inline' https:; style-src 'unsafe-inline' https:;");
 
 define('DS', DIRECTORY_SEPARATOR);
 
