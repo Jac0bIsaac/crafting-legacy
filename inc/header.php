@@ -271,7 +271,7 @@ function blogHeader($match, $param = null)
 </script>
   
   <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a72ddf710fe560012c5e7a4&product=social-ab' async='async'></script> 
-      
+  <script id="dsq-count-scr" src="//kartatopia-studio.disqus.com/count.js" async></script>
   <title>
     <?php 
      if (($match == 'post') && (!empty($param))) : 

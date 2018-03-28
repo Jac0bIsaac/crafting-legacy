@@ -23,8 +23,8 @@ public function createPost($catID, $author, $created, $title, $slug, $content, $
                  :content, :post_status, :comment_status)";
   		
      $data = array(":image" => $picture, ":author" => $author, 
-                  ":created" => $created, ":title" => $title, 
-                  ":slug" => $slug, ":content" => $content, 
+                   ":created" => $created, ":title" => $title, 
+                   ":slug" => $slug, ":content" => $content, 
                   ":post_status" => $post_status, ":comment_status" => $comment_status);
   		 
      } else {
@@ -251,7 +251,8 @@ public function updatePost($id, $catID, $modified, $title, $slug,
                 p.post_type, p.comment_status, v.volunteer_login
   				FROM posts AS p
   				INNER JOIN volunteer AS v ON p.post_author = v.ID
-  				WHERE p.postID = :ID AND p.post_type = 'blog'";
+  				WHERE p.postID = :ID AND p.post_type = 'blog' 
+                AND p.post_status = 'publish'";
   	    
   	    $sanitized_id = $this->filteringId($sanitizing, $id, 'sql');
   	    

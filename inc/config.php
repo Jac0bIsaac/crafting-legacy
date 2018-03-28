@@ -3,18 +3,18 @@ date_default_timezone_set('Asia/Jakarta');
 ini_set('memory_limit', '2M');
 //ini_set("session.cookie_secure", "True");  //secure
 ini_set("session.cookie_httponly", "True"); // httpOnly
-//header("Content-Security-Policy: default-src https:;font-src 'unsafe-inline' data: https:; form-action 'self' https://kartatopia.com; frame-ancestors 'none'; img-src data: https:; object-src 'self' https://kartatopia.com; script-src 'unsafe-inline' https:; style-src 'unsafe-inline' https:;");
+//header("Content-Security-Policy: default-src https:; font-src 'unsafe-inline' data: https:; form-action 'self' https://kartatopia.com;img-src data: https:; child-src https:; object-src 'self' www.google-analytics.com ajax.googleapis.com platform-api.sharethis.com kartatopia-studio.disqus.com; script-src 'unsafe-inline' https:; style-src 'unsafe-inline' https:;");
 
 define('DS', DIRECTORY_SEPARATOR);
 
 //database credentials
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', 'kartatopia');
-define('DB_NAME', 'kartatopia');
+define('DB_HOST', '');
+define('DB_USER', '');
+define('DB_PASS', '');
+define('DB_NAME', '');
 
 // Site configuration
-define('APP_DIR', "http://localhost/legacysite" . DS);  // define site path
+define('APP_DIR', "http:/" . DS);  // define absolute site URL
 define('APP_PUBLIC',  APP_DIR . 'public' . DS); 
 define('APP_SITEEMAIL', 'alanmoehammad@gmail.com');
 define('APP_SITEKEY', 'd0d48739c3b82db413b3be8fbc5d7ea1c1fd3e2792605d3cbfda1HEM78!!');

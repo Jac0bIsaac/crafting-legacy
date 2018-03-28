@@ -39,9 +39,7 @@ if (!$action) {
            if ($parameters) {
                
               checkDetailRequest($action, $param1);
-              
-              $cache_contents = ob_get_contents();
-              
+                
            } else {
                
               ErrorNotFound();
@@ -60,9 +58,7 @@ if (!$action) {
            if ($parameters) {
                
                checkDetailRequest($action, $param1);
-               
-               $cache_contents = ob_get_contents();
-               
+                
            } else {
                
                ErrorNotFound();
@@ -90,16 +86,17 @@ if (!$action) {
 if ($action == 'posts' || $action == 'post' || $action == 'category') {
     
    blogFooter();
+   ob_end_flush();
    
 } else {
 
    setFooter();
-    
-}
 
-$cache_contents = ob_get_contents();
-ob_end_flush();
-$cache -> write_cache($cache_contents);
+   $cache_contents = ob_get_contents();
+   ob_end_flush();
+   $cache -> write_cache($cache_contents);
+   
+}
 
 $time_end = microtime(true);
 $time = $time_end - $time_start;

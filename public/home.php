@@ -69,7 +69,7 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
             foreach ($views['posts'] as $post) :
               if ($post['post_status'] == 'publish') :
           ?>
-             <div class="card text-white bg-info mb-3">
+             <div class="card text-dark bg-info mb-3">
              <div class="card-header ">
               <i class="fa fa-calendar"></i>
                  <?php 
@@ -78,13 +78,13 @@ $totalPosts = (isset($views['totalPosts'])) ? $views['totalPosts'] : 0;
              </div>
               <div class="card-body">
                <h5 class="card-title">
-               <a href="<?php echo APP_DIR . 'post' . '/' . (int)$post['postID'] . '/'. htmlspecialchars($post['post_slug']); ?>" title="<?php echo $post['post_title']; ?>">
+               <a href="<?php echo APP_DIR . 'post' . '/' . (int)$post['postID'] . '/'. htmlspecialchars($post['post_slug']); ?>" class="text-dark" title="<?php echo $post['post_title']; ?>">
                <?php echo htmlspecialchars($post['post_title']); ?>
                </a>
                </h5>
                <?php 
                $article = strip_tags($post['post_content']);
-               $article_content = substr($article, 0, 440);
+               $article_content = substr($article, 0, 240);
                $article_content = substr($article, 0, strrpos($article_content, " "));
                ?>
                <p class="card-text"><?php echo html_entity_decode($article_content); ?></p>

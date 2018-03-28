@@ -52,8 +52,8 @@ if ($cache -> is_cached()) {
     
 }
 
-if ( !startSessionOnSite() ) {
-    session_id( uniqid() );
+if (!startSessionOnSite()) {
+    session_id(uniqid());
     session_start();
     session_regenerate_id();
 }
@@ -90,7 +90,7 @@ $frontContent = new FrontContent();
 $frontPaginator = new Paginator(6, 'p');
 $postFeeds = new RssFeed($dbc);
 
-require(APP_SYSPATH . APP_LIBRARY . DS . 'open-graph-protocol.php');
+require(APP_SYSPATH . APP_LIBRARY . DS . 'OpenGraphProtocol.php');
 
 $imageGraphProtocol = new OpenGraphProtocolImage();
 $ogp = new OpenGraphProtocol();

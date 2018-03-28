@@ -16,13 +16,13 @@ class Uploader
 {
 	/**
 	 * Uploaded's filename
-	 * @var assoc
+	 * @var string
 	 */
 	private $_filename;
 
 	/**
 	 * Uploaded's fileLocation
-	 * @var assoc
+	 * @var string
 	 */
 	private $_fileLocation;
 
@@ -40,14 +40,14 @@ class Uploader
 
 	/**
 	 * Uploaded file's error code
-	 * @var assoc
+	 * @var string
 	 */
 	private $_errorCode;
 
 	/**
 	 * Instantiate automatically
 	 * object properties
-	 * @param assoc $key
+	 * @param string $key
 	 */
 	public function __construct( $key )
 	{
