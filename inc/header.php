@@ -117,7 +117,7 @@ else :
 ?>
    <header class="masthead">
       <div class="container">
-        <img class="img-fluid" src="<?php echo APP_PUBLIC; ?>home/img/piluscart.png" alt="powering your online store">
+        <img class="img-fluid" src="<?php echo APP_PUBLIC; ?>home/img/piluscart.png" alt="powering online shop">
         <div class="intro-text">
           <span class="name"><?php echo "{$views['tagline']}"; ?></span>
           <hr class="star-light">
@@ -357,10 +357,11 @@ function blogHeader($match, $param = null)
 
     <?php 
     if (($match == 'post') && (!empty($param))) :
+       
        if (isset($views['errorMessage']) && $views['errorMessage'] == true) :
     ?>
    
-       <header class="masthead" style="background-image: url('<?php echo APP_DIR; ?>public/blog/img/250087_40percent.jpg')">
+     <header class="masthead" style="background-image: url('<?php echo APP_DIR; ?>public/blog/img/250087_40percent.jpg')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -378,8 +379,17 @@ function blogHeader($match, $param = null)
      <?php
       
      else:
+       
+        if ($post_image != '') :
      ?>
      <header class="masthead" style="background-image: url('<?php echo APP_PICTURE . $post_image; ?>')">
+     <?php 
+       else :
+     ?> 
+     <header class="masthead" style="background-image: url('<?php echo APP_DIR; ?>public/blog/img/250087_40percent.jpg')">
+     <?php 
+       endif;
+     ?>
       <div class="overlay"></div>
       <div class="container">
         <div class="row">

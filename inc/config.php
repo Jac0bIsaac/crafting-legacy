@@ -14,7 +14,7 @@ define('DB_PASS', '');
 define('DB_NAME', '');
 
 // Site configuration
-define('APP_DIR', "http:/" . DS);  // define absolute site URL
+define('APP_DIR', "http://" . DS);  // define absolute site URL
 define('APP_PUBLIC',  APP_DIR . 'public' . DS); 
 define('APP_SITEEMAIL', 'alanmoehammad@gmail.com');
 define('APP_SITEKEY', 'd0d48739c3b82db413b3be8fbc5d7ea1c1fd3e2792605d3cbfda1HEM78!!');

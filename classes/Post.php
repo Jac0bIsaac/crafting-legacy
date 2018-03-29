@@ -25,15 +25,16 @@ public function createPost($catID, $author, $created, $title, $slug, $content, $
      $data = array(":image" => $picture, ":author" => $author, 
                    ":created" => $created, ":title" => $title, 
                    ":slug" => $slug, ":content" => $content, 
-                  ":post_status" => $post_status, ":comment_status" => $comment_status);
+                  ":post_status" => $post_status, 
+                  ":comment_status" => $comment_status);
   		 
      } else {
   			
-  	  $sql = "INSERT INTO posts(post_author, 
-                date_created, post_title, post_slug, 
-                post_content, post_status, comment_status)
-  				VALUES(:author, :created, :title, :slug, 
-                 :content, :post_status, :comment_status))";
+         $sql ="INSERT INTO posts(post_author, date_created, post_title,
+  		                post_slug, post_content, post_status,
+  		                comment_status)
+           VALUES(:author, :created, :title, :slug,
+                 :content, :post_status, :comment_status)";
   		  
   	  $data = array(":author" => $author,
   	      ":created" => $created, ":title" => $title,

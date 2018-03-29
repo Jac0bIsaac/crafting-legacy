@@ -53,9 +53,9 @@ if ($cache -> is_cached()) {
 }
 
 if (!startSessionOnSite()) {
-    session_id(uniqid());
+    
     session_start();
-    session_regenerate_id();
+  
 }
 
 @ob_start();

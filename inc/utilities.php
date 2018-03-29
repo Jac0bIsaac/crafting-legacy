@@ -1067,8 +1067,7 @@ function strip_tags_content($text, $tags = '', $invert = false)
 
 function startSessionOnSite()
 {
-    session_set_cookie_params(0);
-    $lifetime=30000;
+    $lifetime=600;
     $sn = session_name();
     if (isset($_COOKIE[$sn])) {
         $sessid = $_COOKIE[$sn];

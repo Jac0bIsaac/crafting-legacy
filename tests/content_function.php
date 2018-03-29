@@ -27,7 +27,7 @@ function grabHome($products, $posts)
         
         if (empty($data_posts['totalPosts'])) $views['unpublished'] = "No post";
         
-        require 'home.php';
+        require '../public/home.php';
         
         
     }
